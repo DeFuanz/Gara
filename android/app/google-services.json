@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "847434827090",
+    "project_id": "xang-75cbe",
+    "storage_bucket": "xang-75cbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:847434827090:android:85f0ccd612168963ba268b",
+        "android_client_info": {
+          "package_name": "com.app.xang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "847434827090-vb2vqpf2jjm19qrltfuhmiagoiif5atc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3rYwZa56aypBQV4s4hKLduOrNrlOsbdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "847434827090-vb2vqpf2jjm19qrltfuhmiagoiif5atc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
