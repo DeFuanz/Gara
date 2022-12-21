@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 const List<String> _carSelection = <String>[
   'Mercedes GLK 350',
@@ -14,6 +16,8 @@ class MobileBody extends StatefulWidget {
 }
 
 class _MobileBodyState extends State<MobileBody> {
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+
   String dropdownValue = _carSelection.first;
 
   @override
@@ -53,7 +57,7 @@ class _MobileBodyState extends State<MobileBody> {
               decoration: BoxDecoration(
                 color: Colors.grey[350],
                 boxShadow: [
-                  BoxShadow(
+                  const BoxShadow(
                     color: Colors.grey,
                     offset: Offset(5.0, 5.0), //(x,y)
                     blurRadius: 6.0,
@@ -70,7 +74,7 @@ class _MobileBodyState extends State<MobileBody> {
                       child: Column(
                         children: [
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.green,
@@ -101,14 +105,16 @@ class _MobileBodyState extends State<MobileBody> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text('Miles:', style: TextStyle(fontSize: 20)),
-                              Text('150000', style: TextStyle(fontSize: 20)),
+                              const Text('Miles:',
+                                  style: TextStyle(fontSize: 20)),
+                              const Text('150000',
+                                  style: TextStyle(fontSize: 20)),
                             ],
                           ),
                           Container(
