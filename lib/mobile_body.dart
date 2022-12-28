@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -16,9 +16,42 @@ class MobileBody extends StatefulWidget {
 }
 
 class _MobileBodyState extends State<MobileBody> {
-  final FirebaseDatabase _database = FirebaseDatabase.instance;
-
   String dropdownValue = _carSelection.first;
+
+  //create firebase instance variable and new user object variable
+  final _auth = FirebaseAuth.instance;
+  User? loggedInUser;
+  DatabaseReference dbRef = FirebaseDatabase.instance.ref();
+
+  //Grabbed logged in user object
+  void getCurrenUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(user.email);
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  void getVehicles() async {
+    try {
+      final vehicleSnapshot = await dbRef.child('Vehicles').get();
+      print(vehicleSnapshot.value);
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrenUser();
+    getVehicles();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +67,15 @@ class _MobileBodyState extends State<MobileBody> {
             image: AssetImage('assets/images/canister.png'),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ],
       ),
       body: Column(
         children: [

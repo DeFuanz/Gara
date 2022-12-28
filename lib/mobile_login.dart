@@ -63,14 +63,18 @@ class _MobileLoginState extends State<MobileLogin> {
                   color: Colors.green, borderRadius: BorderRadius.circular(5)),
               child: TextButton(
                 onPressed: () {
-                  FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) => {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const MobileBody()))
-                          });
+                  try {
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) => {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const MobileBody()))
+                            });
+                  } on Exception catch (e) {
+                    print(e);
+                  }
                 },
                 child: Text('Login', style: TextStyle(color: Colors.black)),
               ),

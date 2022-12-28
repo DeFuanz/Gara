@@ -49,14 +49,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAT5c1jWi701Iydm1Nx-CaCCRdGDlyi4tw',
-    authDomain: 'xang-75cbe.firebaseapp.com',
-    projectId: 'xang-75cbe',
-    storageBucket: 'xang-75cbe.appspot.com',
-    messagingSenderId: '847434827090',
-    appId: '1:847434827090:web:6e0bc793e8a1d740ba268b',
-    measurementId: 'G-G48X5DB6HE'
-  );
+      apiKey: 'AIzaSyAT5c1jWi701Iydm1Nx-CaCCRdGDlyi4tw',
+      authDomain: 'xang-75cbe.firebaseapp.com',
+      projectId: 'xang-75cbe',
+      databaseURL: "https://xang-75cbe-default-rtdb.firebaseio.com",
+      storageBucket: 'xang-75cbe.appspot.com',
+      messagingSenderId: '847434827090',
+      appId: '1:847434827090:web:6e0bc793e8a1d740ba268b',
+      measurementId: 'G-G48X5DB6HE');
 
   static const FirebaseOptions android = FirebaseOptions(
       apiKey: 'AIzaSyD3rYwZa56aypBQV4s4hKLduOrNrlOsbdE',
