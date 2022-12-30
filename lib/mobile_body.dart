@@ -12,13 +12,13 @@ class MobileBody extends StatefulWidget {
 }
 
 class _MobileBodyState extends State<MobileBody> {
-  static const List<String> _carSelection = <String>[
-    'Mercedes GLK 350',
-    'Chevy Trailblazor LTZ'
-  ];
-
+  String miles = "0";
+  String avgMiles = "0";
+  String fillUps = "0";
   final List<Vehicle> _vehicleList = <Vehicle>[];
-  late String? dropdownValue;
+  Vehicle? dropdownValue;
+
+  late final vehicleFuture;
 
   //create firebase instance variable and new user object variable
   final _auth = FirebaseAuth.instance;
@@ -53,7 +53,11 @@ class _MobileBodyState extends State<MobileBody> {
             int.parse(v.children.elementAt(2).value.toString());
         _vehicleList.add(vehicle);
       }
-      dropdownValue = _vehicleList.first.vehicleName.toString();
+
+      // dropdownValue = _vehicleList.first.vehicleName.toString();
+      // miles = _vehicleList.first.totalMiles.toString();
+      // fillUps = _vehicleList.first.fillUps.toString();
+      // avgMiles = _vehicleList.first.avgMiles.toString();
     } on Exception catch (e) {
       print(e);
     }
@@ -62,13 +66,14 @@ class _MobileBodyState extends State<MobileBody> {
   @override
   void initState() {
     getCurrenUser();
+    vehicleFuture = getVehicles();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getVehicles(),
+      future: vehicleFuture,
       builder: (context, snapshot) {
         return Scaffold(
           appBar: AppBar(
@@ -139,6 +144,7 @@ class _MobileBodyState extends State<MobileBody> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: DropdownButton(
+                                    hint: Text("Select a vehicle"),
                                     iconSize: 0,
                                     alignment: Alignment.center,
                                     underline: Container(),
@@ -146,16 +152,20 @@ class _MobileBodyState extends State<MobileBody> {
                                         color: Colors.white, fontSize: 25),
                                     dropdownColor: Colors.green,
                                     value: dropdownValue,
-                                    onChanged: (String? value) {
+                                    onChanged: (Vehicle? newValue) {
                                       setState(() {
-                                        dropdownValue = value;
+                                        dropdownValue = newValue!;
+
+                                        miles = newValue.totalMiles.toString();
+                                        avgMiles = newValue.avgMiles.toString();
+                                        fillUps = newValue.fillUps.toString();
                                       });
                                     },
                                     items: _vehicleList
-                                        .map<DropdownMenuItem<String>>(
+                                        .map<DropdownMenuItem<Vehicle>>(
                                             (Vehicle value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value.vehicleName.toString(),
+                                      return DropdownMenuItem<Vehicle>(
+                                        value: value,
                                         child:
                                             Text(value.vehicleName.toString()),
                                       );
@@ -172,8 +182,7 @@ class _MobileBodyState extends State<MobileBody> {
                                 children: [
                                   const Text('Miles:',
                                       style: TextStyle(fontSize: 20)),
-                                  const Text('150000',
-                                      style: TextStyle(fontSize: 20)),
+                                  Text(miles, style: TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
@@ -188,7 +197,8 @@ class _MobileBodyState extends State<MobileBody> {
                                 children: [
                                   Text('Avg Miles:',
                                       style: TextStyle(fontSize: 20)),
-                                  Text('324.5', style: TextStyle(fontSize: 20)),
+                                  Text(avgMiles,
+                                      style: TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
@@ -203,7 +213,7 @@ class _MobileBodyState extends State<MobileBody> {
                                 children: [
                                   Text('Fill Ups:',
                                       style: TextStyle(fontSize: 20)),
-                                  Text('22', style: TextStyle(fontSize: 20)),
+                                  Text(fillUps, style: TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
