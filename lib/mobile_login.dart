@@ -70,7 +70,7 @@ class _MobileLoginState extends State<MobileLogin> {
                             password: _passwordTextController.text)
                         .then((value) => {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const MobileBody()))
+                                  builder: (context) => const MobileBodyHome()))
                             });
                   } on Exception catch (e) {
                     print(e);

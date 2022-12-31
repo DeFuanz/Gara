@@ -1,22 +1,28 @@
+import 'package:choring/mobile_addvehicle.dart';
+import 'package:choring/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'Models/Vehicle.dart';
 
-class MobileBody extends StatefulWidget {
-  const MobileBody({Key? key}) : super(key: key);
+class MobileBodyHome extends StatefulWidget {
+  const MobileBodyHome({Key? key}) : super(key: key);
 
   @override
-  State<MobileBody> createState() => _MobileBodyState();
+  State<MobileBodyHome> createState() => _MobileBodyHomeState();
 }
 
-class _MobileBodyState extends State<MobileBody> {
+class _MobileBodyHomeState extends State<MobileBodyHome> {
   String miles = "0";
   String avgMiles = "0";
   String fillUps = "0";
+  String colour = "";
+  String image = "assets/images/car.png";
   final List<Vehicle> _vehicleList = <Vehicle>[];
   Vehicle? dropdownValue;
+
+  int _bottomNavIndex = 0;
 
   late final vehicleFuture;
 
@@ -31,15 +37,14 @@ class _MobileBodyState extends State<MobileBody> {
       final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
-        print(user.email);
+        print(user.uid);
       }
     } on Exception catch (e) {
       print(e);
     }
   }
 
-  Vehicle vehicle = Vehicle();
-
+  //grab users vehicle objects from db
   Future getVehicles() async {
     try {
       final vehicleSnapshot = await dbRef.child('Vehicles').get();
@@ -48,20 +53,36 @@ class _MobileBodyState extends State<MobileBody> {
         Vehicle vehicle = Vehicle();
         vehicle.vehicleName = v.key.toString();
         vehicle.avgMiles = int.parse(v.children.elementAt(0).value.toString());
-        vehicle.fillUps = int.parse(v.children.elementAt(1).value.toString());
+        vehicle.color = v.children.elementAt(1).value.toString();
+        vehicle.fillUps = int.parse(v.children.elementAt(2).value.toString());
+        vehicle.vehicleImage = v.children.elementAt(3).value.toString();
         vehicle.totalMiles =
-            int.parse(v.children.elementAt(2).value.toString());
+            int.parse(v.children.elementAt(4).value.toString());
+        vehicle.vehicleType = v.children.elementAt(5).value.toString();
         _vehicleList.add(vehicle);
       }
 
-      // dropdownValue = _vehicleList.first.vehicleName.toString();
-      // miles = _vehicleList.first.totalMiles.toString();
-      // fillUps = _vehicleList.first.fillUps.toString();
-      // avgMiles = _vehicleList.first.avgMiles.toString();
+      dropdownValue = _vehicleList.first;
+      miles = _vehicleList.first.totalMiles.toString();
+      fillUps = _vehicleList.first.fillUps.toString();
+      avgMiles = _vehicleList.first.avgMiles.toString();
+      colour = _vehicleList.first.color.toString();
+      image = _vehicleList.first.vehicleImage.toString();
     } on Exception catch (e) {
       print(e);
     }
   }
+
+  void _onBottomNavTap(int index) {
+    setState(() {
+      _bottomNavIndex = index;
+    });
+  }
+
+  static List<Widget> _bottomNavOptions = <Widget>[
+    MobileBodyHome(),
+    MobileBodyAddVehicle(),
+  ];
 
   @override
   void initState() {
@@ -99,11 +120,11 @@ class _MobileBodyState extends State<MobileBody> {
           ),
           body: Column(
             children: [
-              const Expanded(
+              Expanded(
                 child: Center(
                   child: Image(
                     image: AssetImage(
-                      'assets/images/car.png',
+                      image,
                     ),
                     height: 250,
                     width: 250,
@@ -128,7 +149,7 @@ class _MobileBodyState extends State<MobileBody> {
                   ),
                   child: SizedBox(
                     //Contains Car details
-                    height: 400,
+                    height: 320,
                     child: Column(
                       children: [
                         Center(
@@ -159,6 +180,8 @@ class _MobileBodyState extends State<MobileBody> {
                                         miles = newValue.totalMiles.toString();
                                         avgMiles = newValue.avgMiles.toString();
                                         fillUps = newValue.fillUps.toString();
+                                        image =
+                                            newValue.vehicleImage.toString();
                                       });
                                     },
                                     items: _vehicleList
@@ -231,6 +254,14 @@ class _MobileBodyState extends State<MobileBody> {
                 ),
               ),
             ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(items: [
+            const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            const BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
+          ],
+          currentIndex: _bottomNavIndex,
+          selectedItemColor: Colors.green,
+          onTap: ,
           ),
         );
       },

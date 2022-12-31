@@ -68,6 +68,21 @@ flutter:
   assets:
     - assets/images/canister.png
     - assets/images/car.png  
+    # sedan images
+    - assets/images/sedans/blacksedan.png  
+    - assets/images/sedans/bluesedan.png  
+    - assets/images/sedans/greensedan.png  
+    - assets/images/sedans/greysedan.png  
+    - assets/images/sedans/whitesedan.png  
+    - assets/images/sedans/redsedan.png 
+    # suv images
+    - assets/images/suvs/redsuv.png
+    - assets/images/suvs/blacksuv.png
+    - assets/images/suvs/bluesuv.png
+    - assets/images/suvs/greensuv.png
+    - assets/images/suvs/greysuv.png
+    - assets/images/suvs/whitesuv.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

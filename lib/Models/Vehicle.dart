@@ -3,6 +3,9 @@ class Vehicle {
   late int? avgMiles;
   late int? fillUps;
   late int? totalMiles;
+  late String? color;
+  late String? vehicleType;
+  late String? vehicleImage;
 
   String? get getVehicle {
     return vehicleName;
@@ -34,5 +37,29 @@ class Vehicle {
 
   set setTotalMiles(int? miles) {
     totalMiles = miles;
+  }
+
+  String? get getColor {
+    return color;
+  }
+
+  set setColor(String colour) {
+    color = colour;
+  }
+
+  String? get getType {
+    return vehicleType;
+  }
+
+  set setType(String? type) {
+    vehicleType = type;
+  }
+
+  String? get getImage {
+    return vehicleImage;
+  }
+
+  set setImage(String? image) {
+    vehicleImage = image;
   }
 }
