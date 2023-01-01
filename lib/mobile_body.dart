@@ -1,4 +1,4 @@
-import 'package:choring/mobile_addvehicle.dart';
+import 'package:choring/mobile_body_addvehicle.dart';
 import 'package:choring/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,8 +21,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   String image = "assets/images/car.png";
   final List<Vehicle> _vehicleList = <Vehicle>[];
   Vehicle? dropdownValue;
-
-  int _bottomNavIndex = 0;
 
   late final vehicleFuture;
 
@@ -73,17 +71,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     }
   }
 
-  void _onBottomNavTap(int index) {
-    setState(() {
-      _bottomNavIndex = index;
-    });
-  }
-
-  static List<Widget> _bottomNavOptions = <Widget>[
-    MobileBodyHome(),
-    MobileBodyAddVehicle(),
-  ];
-
   @override
   void initState() {
     getCurrenUser();
@@ -101,22 +88,37 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             elevation: 1,
             foregroundColor: Colors.green,
             backgroundColor: Colors.white,
-            title: const Text('Xăng'),
+            title: const Center(child: Text('Xăng')),
             leading: const Padding(
               padding: EdgeInsets.all(10),
               child: Image(
                 image: AssetImage('assets/images/canister.png'),
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  _auth.signOut();
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.exit_to_app),
-              ),
-            ],
+          ),
+          endDrawer: Drawer(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: const Text('Add Vehicle'),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MobileBodyAddVehicle(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  title: const Text('Logout'),
+                  onTap: () {
+                    _auth.signOut();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
           body: Column(
             children: [
@@ -165,7 +167,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: DropdownButton(
-                                    hint: Text("Select a vehicle"),
+                                    hint: const Text("Select a vehicle"),
                                     iconSize: 0,
                                     alignment: Alignment.center,
                                     underline: Container(),
@@ -205,12 +207,14 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 children: [
                                   const Text('Miles:',
                                       style: TextStyle(fontSize: 20)),
-                                  Text(miles, style: TextStyle(fontSize: 20)),
+                                  Text(miles,
+                                      style: const TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: Divider(
+                                margin:
+                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                child: const Divider(
                                   height: 2,
                                 ),
                               ),
@@ -218,15 +222,16 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text('Avg Miles:',
+                                  const Text('Avg Miles:',
                                       style: TextStyle(fontSize: 20)),
                                   Text(avgMiles,
-                                      style: TextStyle(fontSize: 20)),
+                                      style: const TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: Divider(
+                                margin:
+                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                child: const Divider(
                                   height: 2,
                                 ),
                               ),
@@ -234,14 +239,16 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text('Fill Ups:',
+                                  const Text('Fill Ups:',
                                       style: TextStyle(fontSize: 20)),
-                                  Text(fillUps, style: TextStyle(fontSize: 20)),
+                                  Text(fillUps,
+                                      style: const TextStyle(fontSize: 20)),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: Divider(
+                                margin:
+                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                child: const Divider(
                                   height: 2,
                                 ),
                               ),
@@ -254,14 +261,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                 ),
               ),
             ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(items: [
-            const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            const BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
-          ],
-          currentIndex: _bottomNavIndex,
-          selectedItemColor: Colors.green,
-          onTap: ,
           ),
         );
       },

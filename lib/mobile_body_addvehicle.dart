@@ -9,6 +9,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Text('Add new vehicle'),
     );
   }
