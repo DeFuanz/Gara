@@ -1,7 +1,5 @@
 import 'package:choring/mobile_body_addvehicle.dart';
-import 'package:choring/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'Models/Vehicle.dart';
@@ -19,6 +17,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   String fillUps = "0";
   String colour = "";
   String image = "assets/images/car.png";
+  String? userEmail = "userEmail";
   final List<Vehicle> _vehicleList = <Vehicle>[];
   Vehicle? dropdownValue;
 
@@ -35,6 +34,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
+        userEmail = loggedInUser!.email;
         print(user.uid);
       }
     } on Exception catch (e) {
@@ -83,186 +83,210 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     return FutureBuilder(
       future: vehicleFuture,
       builder: (context, snapshot) {
-        return Scaffold(
-          appBar: AppBar(
-            elevation: 1,
-            foregroundColor: Colors.green,
-            backgroundColor: Colors.white,
-            title: const Center(child: Text('Xăng')),
-            leading: const Padding(
-              padding: EdgeInsets.all(10),
-              child: Image(
-                image: AssetImage('assets/images/canister.png'),
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: Container(
+              color: Colors.white,
+              child: const CircularProgressIndicator(),
+            ),
+          );
+        } else {
+          return Scaffold(
+            appBar: AppBar(
+              elevation: 1,
+              foregroundColor: Colors.green,
+              backgroundColor: Colors.white,
+              title: const Center(child: Text('Xăng')),
+              leading: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Image(
+                  image: AssetImage('assets/images/canister.png'),
+                ),
               ),
             ),
-          ),
-          endDrawer: Drawer(
-            child: ListView(
-              children: [
-                ListTile(
-                  title: const Text('Add Vehicle'),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const MobileBodyAddVehicle(),
+            endDrawer: Drawer(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 75,
+                    child: DrawerHeader(
+                      child: Center(
+                        child: Text(
+                          userEmail.toString(),
+                        ),
                       ),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: const Text('Logout'),
-                  onTap: () {
-                    _auth.signOut();
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Image(
-                    image: AssetImage(
-                      image,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                      ),
                     ),
-                    height: 250,
-                    width: 250,
                   ),
-                ),
+                  ListTile(
+                    title: const Text('Add Vehicle'),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const MobileBodyAddVehicle(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Logout'),
+                    onTap: () {
+                      _auth.signOut();
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    },
+                  ),
+                ],
               ),
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[350],
-                    boxShadow: [
-                      const BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(5.0, 5.0), //(x,y)
-                        blurRadius: 6.0,
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Image(
+                      image: AssetImage(
+                        image,
                       ),
-                    ],
+                      height: 250,
+                      width: 250,
+                    ),
                   ),
-                  child: SizedBox(
-                    //Contains Car details
-                    height: 320,
-                    child: Column(
-                      children: [
-                        Center(
-                          //Car selection
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: DropdownButton(
-                                    hint: const Text("Select a vehicle"),
-                                    iconSize: 0,
-                                    alignment: Alignment.center,
-                                    underline: Container(),
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 25),
-                                    dropdownColor: Colors.green,
-                                    value: dropdownValue,
-                                    onChanged: (Vehicle? newValue) {
-                                      setState(() {
-                                        dropdownValue = newValue!;
-
-                                        miles = newValue.totalMiles.toString();
-                                        avgMiles = newValue.avgMiles.toString();
-                                        fillUps = newValue.fillUps.toString();
-                                        image =
-                                            newValue.vehicleImage.toString();
-                                      });
-                                    },
-                                    items: _vehicleList
-                                        .map<DropdownMenuItem<Vehicle>>(
-                                            (Vehicle value) {
-                                      return DropdownMenuItem<Vehicle>(
-                                        value: value,
-                                        child:
-                                            Text(value.vehicleName.toString()),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text('Miles:',
-                                      style: TextStyle(fontSize: 20)),
-                                  Text(miles,
-                                      style: const TextStyle(fontSize: 20)),
-                                ],
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: const Divider(
-                                  height: 2,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text('Avg Miles:',
-                                      style: TextStyle(fontSize: 20)),
-                                  Text(avgMiles,
-                                      style: const TextStyle(fontSize: 20)),
-                                ],
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: const Divider(
-                                  height: 2,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  const Text('Fill Ups:',
-                                      style: TextStyle(fontSize: 20)),
-                                  Text(fillUps,
-                                      style: const TextStyle(fontSize: 20)),
-                                ],
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: const Divider(
-                                  height: 2,
-                                ),
-                              ),
-                            ],
-                          ),
+                ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(5.0, 5.0), //(x,y)
+                          blurRadius: 6.0,
                         ),
                       ],
                     ),
+                    child: SizedBox(
+                      //Contains Car details
+                      height: 320,
+                      child: Column(
+                        children: [
+                          Center(
+                            //Car selection
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.green,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DropdownButton(
+                                      hint: const Text("Select a vehicle"),
+                                      iconSize: 0,
+                                      alignment: Alignment.center,
+                                      underline: Container(),
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 25),
+                                      dropdownColor: Colors.green,
+                                      value: dropdownValue,
+                                      onChanged: (Vehicle? newValue) {
+                                        setState(() {
+                                          dropdownValue = newValue!;
+
+                                          miles =
+                                              newValue.totalMiles.toString();
+                                          avgMiles =
+                                              newValue.avgMiles.toString();
+                                          fillUps = newValue.fillUps.toString();
+                                          image =
+                                              newValue.vehicleImage.toString();
+                                        });
+                                      },
+                                      items: _vehicleList
+                                          .map<DropdownMenuItem<Vehicle>>(
+                                              (Vehicle value) {
+                                        return DropdownMenuItem<Vehicle>(
+                                          value: value,
+                                          child: Text(
+                                              value.vehicleName.toString()),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const Text('Miles:',
+                                        style: TextStyle(fontSize: 20)),
+                                    Text(miles,
+                                        style: const TextStyle(fontSize: 20)),
+                                  ],
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                  child: const Divider(
+                                    height: 2,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const Text('Avg Miles:',
+                                        style: TextStyle(fontSize: 20)),
+                                    Text(avgMiles,
+                                        style: const TextStyle(fontSize: 20)),
+                                  ],
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                  child: const Divider(
+                                    height: 2,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    const Text('Fill Ups:',
+                                        style: TextStyle(fontSize: 20)),
+                                    Text(fillUps,
+                                        style: const TextStyle(fontSize: 20)),
+                                  ],
+                                ),
+                                Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                  child: const Divider(
+                                    height: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
+              ],
+            ),
+          );
+        }
       },
     );
   }

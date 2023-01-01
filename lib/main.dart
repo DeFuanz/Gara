@@ -1,4 +1,4 @@
-import 'package:choring/firebase_options.dart';
+import 'package:choring/Data/firebase_options.dart';
 import 'package:choring/mobile_login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MobileLogin(),
+      home: const MobileLogin(),
     );
   }
 }
