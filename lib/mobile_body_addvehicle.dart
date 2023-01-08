@@ -86,68 +86,6 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Vehicle Type',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                color: sedanSelected ? Colors.green : Colors.grey,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
-                  child: TextButton(
-                    onPressed: (() {
-                      setState(() {
-                        sedanSelected = true;
-                        suvSelected = false;
-
-                        blackCar = _sedansImages[0];
-                        blueCar = _sedansImages[1];
-                        greenCar = _sedansImages[2];
-                        greyCar = _sedansImages[3];
-                        redCar = _sedansImages[4];
-                        whiteCar = _sedansImages[5];
-                      });
-                    }),
-                    child: const Text('Sedan',
-                        style: TextStyle(color: Colors.black, fontSize: 12)),
-                  ),
-                ),
-              ),
-              Container(
-                color: suvSelected ? Colors.green : Colors.grey,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
-                  child: TextButton(
-                    onPressed: (() {
-                      setState(() {
-                        sedanSelected = false;
-                        suvSelected = true;
-
-                        blackCar = _suvImages[0];
-                        blueCar = _suvImages[1];
-                        greenCar = _suvImages[2];
-                        greyCar = _suvImages[3];
-                        redCar = _suvImages[4];
-                        whiteCar = _suvImages[5];
-                      });
-                    }),
-                    child: const Text('SUV',
-                        style: TextStyle(color: Colors.black, fontSize: 12)),
-                  ),
-                ),
-              ),
-            ],
-          ),
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: 3,
@@ -278,6 +216,89 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                         fontSize: 12, fontWeight: FontWeight.normal)),
               ),
             ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Vehicle Type',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  color: sedanSelected ? Colors.green : Colors.grey,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+                    child: TextButton(
+                      onPressed: (() {
+                        setState(() {
+                          sedanSelected = true;
+                          suvSelected = false;
+
+                          blackCar = _sedansImages[0];
+                          blueCar = _sedansImages[1];
+                          greenCar = _sedansImages[2];
+                          greyCar = _sedansImages[3];
+                          redCar = _sedansImages[4];
+                          whiteCar = _sedansImages[5];
+                        });
+                      }),
+                      child: const Text('Sedan',
+                          style: TextStyle(color: Colors.black, fontSize: 12)),
+                    ),
+                  ),
+                ),
+                Container(
+                  color: suvSelected ? Colors.green : Colors.grey,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+                    child: TextButton(
+                      onPressed: (() {
+                        setState(() {
+                          sedanSelected = false;
+                          suvSelected = true;
+
+                          blackCar = _suvImages[0];
+                          blueCar = _suvImages[1];
+                          greenCar = _suvImages[2];
+                          greyCar = _suvImages[3];
+                          redCar = _suvImages[4];
+                          whiteCar = _suvImages[5];
+                        });
+                      }),
+                      child: const Text('SUV',
+                          style: TextStyle(color: Colors.black, fontSize: 12)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Vehicle Name',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Current Vehicle Miles',
+              ),
+            ),
           ),
         ],
       ),
