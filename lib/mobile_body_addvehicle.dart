@@ -68,10 +68,14 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
           children: [
             ListTile(
               title: const Text('My Garage'),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
             ),
-            ListTile(
-              title: const Text('Add Vehicle'),
+            const ListTile(
+              title: Text('Add Vehicle'),
               onTap: null,
             ),
             ListTile(
@@ -86,6 +90,17 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
       ),
       body: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text('Select Car Color',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
           GridView.count(
             shrinkWrap: true,
             crossAxisCount: 3,
@@ -282,21 +297,39 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const TextField(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 4, 15, 4),
+            child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Vehicle Name',
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const TextField(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 4, 15, 4),
+            child: TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Current Vehicle Miles',
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    color: Colors.green,
+                    child: TextButton(
+                      onPressed: null,
+                      child: Text(
+                        'Add To Garage',
+                      ),
+                    )),
               ),
             ),
           ),
