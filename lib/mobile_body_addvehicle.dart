@@ -226,7 +226,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(carSelectedColor,
+                child: Text('Selected Color: $carSelectedColor',
                     style: const TextStyle(
                         fontSize: 12, fontWeight: FontWeight.normal)),
               ),
