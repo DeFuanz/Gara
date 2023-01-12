@@ -18,6 +18,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   String colour = "";
   String image = "assets/images/car.png";
   String? userEmail = "userEmail";
+  String? userId;
   final List<Vehicle> _vehicleList = <Vehicle>[];
   Vehicle? dropdownValue;
 
@@ -35,6 +36,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       if (user != null) {
         loggedInUser = user;
         userEmail = loggedInUser!.email;
+        userId = loggedInUser!.uid;
         print(user.uid);
       }
     } on Exception catch (e) {
@@ -45,18 +47,20 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   //grab users vehicle objects from db
   Future getVehicles() async {
     try {
-      final vehicleSnapshot = await dbRef.child('Vehicles').get();
-
+      final vehicleSnapshot = await dbRef.child('/Vehicles/$userId').get();
+      print(userId);
       for (var v in vehicleSnapshot.children) {
         Vehicle vehicle = Vehicle();
-        vehicle.vehicleName = v.key.toString();
+
         vehicle.avgMiles = int.parse(v.children.elementAt(0).value.toString());
         vehicle.color = v.children.elementAt(1).value.toString();
         vehicle.fillUps = int.parse(v.children.elementAt(2).value.toString());
         vehicle.vehicleImage = v.children.elementAt(3).value.toString();
         vehicle.totalMiles =
             int.parse(v.children.elementAt(4).value.toString());
+        vehicle.vehicleName = v.children.elementAt(5).value.toString();
         vehicle.vehicleType = v.children.elementAt(5).value.toString();
+
         _vehicleList.add(vehicle);
       }
 

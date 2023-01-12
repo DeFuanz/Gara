@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +11,8 @@ class MobileBodyAddVehicle extends StatefulWidget {
 
 class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   final _auth = FirebaseAuth.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
+  String? userId;
 
   bool sedanSelected = true;
 
@@ -51,19 +54,44 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     "assets/images/suvs/whitesuv.png",
   ];
 
-  Future addNewVehicle() async {
-    final newVehicleData = {
+  void addNewVehicle() async {
+    final newVehicle = {
+      'Name': "Vehicle1",
       'AvgMiles': 0,
       'Color': carSelectedColor,
       'FillUps': 0,
       'Image': carSelectedImage,
-      'Miles': totalMilesInput,
-      'Type': carSelectedType
+      'Miles': "100000",
+      'Type': carSelectedType,
+      'User': userId
     };
 
-    try {} on Exception catch (e) {
+    final newVehicleKey = ref.push().key;
+
+    final Map<String, Map> vehicleData = {};
+    vehicleData['/Vehicles/$userId/$newVehicleKey'] = newVehicle;
+    try {
+      return ref.update(vehicleData);
+    } on Exception catch (e) {
       print(e);
     }
+  }
+
+  void getCurrenUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        userId = user.uid;
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    getCurrenUser();
+    super.initState();
   }
 
   @override
@@ -281,6 +309,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                         setState(() {
                           sedanSelected = true;
                           carSelectedType = "sedan";
+                          carSelectedImage =
+                              "assets/images/sedans/${carSelectedColor.toLowerCase()}sedan.png";
 
                           blackCar = _sedansImages[0];
                           blueCar = _sedansImages[1];
@@ -304,6 +334,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                         setState(() {
                           sedanSelected = false;
                           carSelectedType = 'suv';
+                          carSelectedImage =
+                              "assets/images/suvs/${carSelectedColor.toLowerCase()}suv.png";
 
                           blackCar = _suvImages[0];
                           blueCar = _suvImages[1];
@@ -349,7 +381,9 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     width: double.infinity,
                     color: Colors.green,
                     child: TextButton(
-                      onPressed: null,
+                      onPressed: () {
+                        addNewVehicle();
+                      },
                       child: Text(
                         'Add To Garage',
                       ),
