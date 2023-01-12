@@ -12,7 +12,6 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   final _auth = FirebaseAuth.instance;
 
   bool sedanSelected = true;
-  bool suvSelected = false;
 
   bool blackCarSelected = true;
   bool blueCarSelected = false;
@@ -22,6 +21,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   bool whiteCarSelected = false;
 
   String carSelectedColor = "Black";
+
+  String carSelectedImage = "assets/images/sedans/blacksedan.png";
+  int totalMilesInput = 0;
+  String carSelectedType = "sedan";
 
   String blackCar = "assets/images/sedans/blacksedan.png";
   String blueCar = "assets/images/sedans/bluesedan.png";
@@ -47,6 +50,21 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     "assets/images/suvs/redsuv.png",
     "assets/images/suvs/whitesuv.png",
   ];
+
+  Future addNewVehicle() async {
+    final newVehicleData = {
+      'AvgMiles': 0,
+      'Color': carSelectedColor,
+      'FillUps': 0,
+      'Image': carSelectedImage,
+      'Miles': totalMilesInput,
+      'Type': carSelectedType
+    };
+
+    try {} on Exception catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +130,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: () {
                     setState(() {
                       carSelectedColor = "Black";
+                      carSelectedImage = blackCar;
 
                       blackCarSelected = true;
                       blueCarSelected = false;
@@ -131,6 +150,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: () {
                     setState(() {
                       carSelectedColor = "Blue";
+                      carSelectedImage = blueCar;
 
                       blackCarSelected = false;
                       blueCarSelected = true;
@@ -150,6 +170,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: (() {
                     setState(() {
                       carSelectedColor = "Green";
+                      carSelectedImage = greenCar;
 
                       blackCarSelected = false;
                       blueCarSelected = false;
@@ -169,6 +190,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: () {
                     setState(() {
                       carSelectedColor = "Grey";
+                      carSelectedImage = greyCar;
 
                       blackCarSelected = false;
                       blueCarSelected = false;
@@ -188,6 +210,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: (() {
                     setState(() {
                       carSelectedColor = "Red";
+                      carSelectedImage = redCar;
 
                       blackCarSelected = false;
                       blueCarSelected = false;
@@ -207,6 +230,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   onPressed: (() {
                     setState(() {
                       carSelectedColor = "White";
+                      carSelectedImage = whiteCar;
 
                       blackCarSelected = false;
                       blueCarSelected = false;
@@ -225,10 +249,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 8.0),
                 child: Text('Selected Color: $carSelectedColor',
                     style: const TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.normal)),
+                        fontSize: 15, fontWeight: FontWeight.normal)),
               ),
             ],
           ),
@@ -256,7 +280,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                       onPressed: (() {
                         setState(() {
                           sedanSelected = true;
-                          suvSelected = false;
+                          carSelectedType = "sedan";
 
                           blackCar = _sedansImages[0];
                           blueCar = _sedansImages[1];
@@ -272,14 +296,14 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   ),
                 ),
                 Container(
-                  color: suvSelected ? Colors.green : Colors.grey,
+                  color: sedanSelected ? Colors.grey : Colors.green,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
                     child: TextButton(
                       onPressed: (() {
                         setState(() {
                           sedanSelected = false;
-                          suvSelected = true;
+                          carSelectedType = 'suv';
 
                           blackCar = _suvImages[0];
                           blueCar = _suvImages[1];
