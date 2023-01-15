@@ -88,11 +88,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       future: vehicleFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Container(
-              color: Colors.white,
-              child: const CircularProgressIndicator(),
-            ),
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.white,
+            child: const Center(child: CircularProgressIndicator()),
           );
         } else {
           return Scaffold(
