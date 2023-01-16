@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class MobileBodyAddVehicle extends StatefulWidget {
   const MobileBodyAddVehicle({Key? key}) : super(key: key);
@@ -156,9 +156,15 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             SizedBox(
               height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  height: 180,
+                  enlargeCenterPage: true,
+                  aspectRatio: 16 / 9,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 0.5,
+                ),
+                items: [
                   SizedBox(
                     height: 175,
                     width: 175,
@@ -396,7 +402,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   hintText: 'Enter Vehicle Name',
                 ),
                 validator: (String? value) {
-                  return value == null ? 'Enter a vehicle name' : null;
+                  return value!.isEmpty ? 'Enter a vehicle name' : null;
                 },
               ),
             ),
@@ -426,33 +432,15 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                       color: Colors.green,
                       child: TextButton(
                         onPressed: () {
-                          // if (_vehicleEnteredName.text == "") {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(
-                          //       content: Text('Enter a Vehicle Name'),
-                          //     ),
-                          //   );
-                          // } else if (int.tryParse(_vehicleEnteredMiles.text) ==
-                          //     null) {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(
-                          //       content: Text(
-                          //         'Miles must contain valid numbers',
-                          //       ),
-                          //     ),
-                          //   );
-                          // } else {
-                          //   carName = _vehicleEnteredName.text;
-                          //   totalMilesInput =
-                          //       int.parse(_vehicleEnteredMiles.text);
-                          //   addNewVehicle();
-                          // }
-                          //
                           if (_formKey.currentState!.validate()) {
                             carName = _vehicleEnteredName.text;
                             totalMilesInput =
                                 int.parse(_vehicleEnteredMiles.text);
+
                             addNewVehicle();
+
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text(

@@ -22,7 +22,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   final List<Vehicle> _vehicleList = <Vehicle>[];
   Vehicle? dropdownValue;
 
-  late final vehicleFuture;
+  late var vehicleFuture;
 
   //create firebase instance variable and new user object variable
   final _auth = FirebaseAuth.instance;
@@ -48,7 +48,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   Future getVehicles() async {
     try {
       final vehicleSnapshot = await dbRef.child('/Vehicles/$userId').get();
-      print(userId);
+
       for (var v in vehicleSnapshot.children) {
         Vehicle vehicle = Vehicle();
 
@@ -127,11 +127,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                   ListTile(
                     title: const Text('Add Vehicle'),
                     onTap: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context)
+                          .push(
                         MaterialPageRoute(
                           builder: (context) => const MobileBodyAddVehicle(),
                         ),
-                      );
+                      )
+                          .then((value) {
+                        setState(() {
+                          _vehicleList.clear();
+                          vehicleFuture = getVehicles();
+                        });
+                      });
                     },
                   ),
                   ListTile(
