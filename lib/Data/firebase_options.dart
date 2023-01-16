@@ -63,5 +63,6 @@ class DefaultFirebaseOptions {
       appId: '1:847434827090:android:85f0ccd612168963ba268b',
       messagingSenderId: '847434827090',
       projectId: 'xang-75cbe',
+      databaseURL: "https://xang-75cbe-default-rtdb.firebaseio.com",
       storageBucket: 'xang-75cbe.appspot.com');
 }
