@@ -160,8 +160,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: blackCarSelected ? 1.0 : .2,
                       child: IconButton(
@@ -183,8 +183,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     ),
                   ),
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: blueCarSelected ? 1.0 : 0.2,
                       child: IconButton(
@@ -207,8 +207,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     ),
                   ),
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: greenCarSelected ? 1.0 : 0.2,
                       child: IconButton(
@@ -231,8 +231,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     ),
                   ),
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: greyCarSelected ? 1.0 : 0.2,
                       child: IconButton(
@@ -255,8 +255,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     ),
                   ),
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: redCarSelected ? 1.0 : 0.2,
                       child: IconButton(
@@ -279,8 +279,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                     ),
                   ),
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 175,
+                    width: 175,
                     child: Opacity(
                       opacity: whiteCarSelected ? 1.0 : 0.2,
                       child: IconButton(
@@ -394,8 +394,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Vehicle Name',
-                  helperText: '',
                 ),
+                validator: (String? value) {
+                  return value == null ? 'Enter a vehicle name' : null;
+                },
               ),
             ),
             Padding(
@@ -405,10 +407,11 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Enter Current Vehicle Miles',
-                  helperText: '',
                 ),
                 validator: (String? value) {
-                  return int.tryParse(value!) == null ? '' : null;
+                  return int.tryParse(value!) == null
+                      ? 'Enter a valid whole number'
+                      : null;
                 },
               ),
             ),
