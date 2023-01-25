@@ -1,4 +1,5 @@
-import 'package:choring/Presentation/Pages/mobile_body.dart';
+import 'package:choring/Pages/mobile_body.dart';
+import 'package:choring/Pages/new_accounts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -75,7 +76,8 @@ class _MobileLoginState extends State<MobileLogin> {
                     print(e);
                   }
                 },
-                child: Text('Login', style: TextStyle(color: Colors.black)),
+                child:
+                    const Text('Login', style: TextStyle(color: Colors.black)),
               ),
             ),
             const SizedBox(
@@ -85,10 +87,17 @@ class _MobileLoginState extends State<MobileLogin> {
               width: 200,
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(5)),
-              child: const TextButton(
-                onPressed: null,
-                child: Text('Create Account'),
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.green)),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NewAccounts(),
+                  ));
+                },
+                child: const Text('Create Account',
+                    style: TextStyle(color: Colors.green)),
               ),
             ),
           ],

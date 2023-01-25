@@ -1,8 +1,8 @@
-import 'package:choring/Presentation/Pages/mobile_body_addvehicle.dart';
+import 'package:choring/Pages/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:choring/Data/Models/Vehicle.dart';
+import 'package:choring/Models/Vehicle.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);

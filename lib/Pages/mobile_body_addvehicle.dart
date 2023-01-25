@@ -157,8 +157,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Padding(
+              children: const [
+                Padding(
                   padding: EdgeInsets.all(4.0),
                   child: Text('Select Car Color',
                       style:
