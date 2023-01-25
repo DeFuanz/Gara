@@ -52,21 +52,19 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     "assets/images/suvs/whitesuv.png",
   ];
 
-  late String carName;
   String carSelectedImage = "assets/images/sedans/blacksedan.png";
-  late int totalMilesInput;
   String carSelectedType = "sedan";
   final TextEditingController _vehicleEnteredName = TextEditingController();
   final TextEditingController _vehicleEnteredMiles = TextEditingController();
 
   void addNewVehicle() async {
     final newVehicle = {
-      'Name': carName,
+      'Name': _vehicleEnteredName.text,
       'AvgMiles': 0,
       'Color': carSelectedColor,
       'FillUps': 0,
       'Image': carSelectedImage,
-      'Miles': totalMilesInput,
+      'Miles': int.parse(_vehicleEnteredMiles.text),
       'Type': carSelectedType,
       'User': userId
     };
@@ -433,10 +431,6 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                       child: TextButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            carName = _vehicleEnteredName.text;
-                            totalMilesInput =
-                                int.parse(_vehicleEnteredMiles.text);
-
                             addNewVehicle();
 
                             Navigator.pop(context);
