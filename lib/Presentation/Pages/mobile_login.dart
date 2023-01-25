@@ -1,4 +1,4 @@
-import 'package:choring/mobile_body.dart';
+import 'package:choring/Presentation/Pages/mobile_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

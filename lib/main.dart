@@ -1,5 +1,5 @@
-import 'package:choring/Data/firebase_options.dart';
-import 'package:choring/mobile_login.dart';
+import 'package:choring/Core/FirebaseOptions/firebase_options.dart';
+import 'package:choring/Presentation/Pages/mobile_login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
