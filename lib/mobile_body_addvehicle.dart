@@ -10,12 +10,15 @@ class MobileBodyAddVehicle extends StatefulWidget {
 }
 
 class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
+  // Key used for client side textform validation
   final _formKey = GlobalKey<FormState>();
 
+  //Data related properties
   final _auth = FirebaseAuth.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   String? userId;
 
+  //Variables to set defualts and manage button interactions and design
   bool sedanSelected = true;
 
   bool blackCarSelected = true;
@@ -26,7 +29,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   bool whiteCarSelected = false;
 
   String carSelectedColor = "Black";
+  String carSelectedImage = "assets/images/sedans/blacksedan.png";
+  String carSelectedType = "sedan";
 
+  //Assigned car colors defualt images - Changed by list values later
   String blackCar = "assets/images/sedans/blacksedan.png";
   String blueCar = "assets/images/sedans/bluesedan.png";
   String greenCar = "assets/images/sedans/greensedan.png";
@@ -34,6 +40,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   String redCar = "assets/images/sedans/redsedan.png";
   String whiteCar = "assets/images/sedans/whitesedan.png";
 
+  //Lists populated to access by car and color easily
   final List<String> _sedansImages = <String>[
     "assets/images/sedans/blacksedan.png",
     "assets/images/sedans/bluesedan.png",
@@ -52,11 +59,11 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     "assets/images/suvs/whitesuv.png",
   ];
 
-  String carSelectedImage = "assets/images/sedans/blacksedan.png";
-  String carSelectedType = "sedan";
+  //Textfield controllers to store entered text
   final TextEditingController _vehicleEnteredName = TextEditingController();
   final TextEditingController _vehicleEnteredMiles = TextEditingController();
 
+  //Push new vehicle to database
   void addNewVehicle() async {
     final newVehicle = {
       'Name': _vehicleEnteredName.text,
@@ -69,10 +76,16 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
       'User': userId
     };
 
+    //Create unique vehicle key to avoid conflicts with duplicate names
     final newVehicleKey = ref.push().key;
 
+    //Map to insert vehicle data with key
     final Map<String, Map> vehicleData = {};
+
+    //Add new vehicle data to map under new key
     vehicleData['/Vehicles/$userId/$newVehicleKey'] = newVehicle;
+
+    //Attempt to insert to database
     try {
       return ref.update(vehicleData);
     } on Exception catch (e) {
@@ -80,6 +93,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     }
   }
 
+  //Grab userID to user later when inserting new vehicle
   void getCurrenUser() {
     try {
       final user = _auth.currentUser;
