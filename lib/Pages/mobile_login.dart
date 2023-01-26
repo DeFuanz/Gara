@@ -106,7 +106,7 @@ class _MobileLoginState extends State<MobileLogin> {
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
-                                      Text('Account not Found'),
+                                      const Text('Account not Found'),
                                     ],
                                   ),
                                 ),

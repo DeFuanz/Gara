@@ -1,3 +1,7 @@
+import 'package:choring/Pages/mobile_body.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class NewAccounts extends StatefulWidget {
@@ -6,7 +10,7 @@ class NewAccounts extends StatefulWidget {
 }
 
 class _NewAccountsState extends State<NewAccounts> {
-  final TextEditingController _emailTextcontroller = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _password1Controller = TextEditingController();
   final TextEditingController _password2Controller = TextEditingController();
 
@@ -37,13 +41,13 @@ class _NewAccountsState extends State<NewAccounts> {
                 child: SizedBox(
                   width: 300,
                   child: TextFormField(
-                    controller: _emailTextcontroller,
+                    controller: _emailTextController,
                     decoration:
                         const InputDecoration(hintText: 'Enter your email'),
                     validator: (value) {
                       return RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(_emailTextcontroller.text)
+                              .hasMatch(_emailTextController.text)
                           ? null
                           : 'Enter a valid email address';
                     },
@@ -67,7 +71,7 @@ class _NewAccountsState extends State<NewAccounts> {
                   ),
                 ),
               ),
-              const Text('Enter Password Again'),
+              const Text('Retype Password'),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
@@ -75,9 +79,10 @@ class _NewAccountsState extends State<NewAccounts> {
                   child: TextFormField(
                     controller: _password2Controller,
                     decoration:
-                        const InputDecoration(hintText: 'Enter your email'),
+                        const InputDecoration(hintText: 'Enter Password Again'),
                     validator: (value) {
-                      return _password2Controller != _password1Controller
+                      return _password2Controller.text !=
+                              _password1Controller.text
                           ? 'Passwords do not match. Please try again'
                           : null;
                     },
@@ -89,7 +94,15 @@ class _NewAccountsState extends State<NewAccounts> {
                 child: TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pop(context);
+                      FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _password1Controller.text)
+                          .then((value) => {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MobileBodyHome()))
+                              });
                     }
                   },
                   child: const Text('Create Account'),
