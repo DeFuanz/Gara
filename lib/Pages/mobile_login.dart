@@ -82,7 +82,7 @@ class _MobileLoginState extends State<MobileLogin> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       try {
-                        FirebaseAuth.instance
+                        await FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: _emailTextController.text,
                                 password: _passwordTextController.text)
@@ -90,50 +90,28 @@ class _MobileLoginState extends State<MobileLogin> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           const MobileBodyHome()))
-                                })
-                            .catchError(await showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                actions: [
-                                  TextButton(
-                                    child: const Text('Okay'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                                title: const Text('Error'),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      const Text('Account not Found'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ));
-                      } on Exception catch (e) {
+                                });
+                      } on FirebaseAuthException catch (e) {
                         showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            actions: [
-                              TextButton(
-                                child: const Text('Okay'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                            title: const Text('Error'),
-                            content: SingleChildScrollView(
-                              child: ListBody(
-                                children: <Widget>[
-                                  Text(e.toString()),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('Okay'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                  title: const Text('Error'),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: const <Widget>[
+                                        Text('Account not Found'),
+                                      ],
+                                    ),
+                                  ),
+                                ));
                       }
                     }
                   },
