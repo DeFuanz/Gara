@@ -4,6 +4,7 @@ import 'package:choring/Features/VehicleListHome/Presentation/MobilePages/mobile
 import 'package:choring/Features/CreateAccount/Presentation/MobilePages/new_accounts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MobileLogin extends StatefulWidget {
   const MobileLogin({Key? key}) : super(key: key);
@@ -32,19 +33,15 @@ class _MobileLoginState extends State<MobileLogin> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Gara',
-                    style: TextStyle(
-                        fontSize: 100,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87)),
+                Text('GARA', style: GoogleFonts.poiretOne(fontSize: 110)),
                 const Padding(
                   padding: EdgeInsets.all(25),
                   child: Image(
                     image: AssetImage(
                       'assets/images/garage.png',
                     ),
-                    height: 100,
-                    width: 100,
+                    height: 190,
+                    width: 190,
                   ),
                 ),
                 Padding(
@@ -79,8 +76,11 @@ class _MobileLoginState extends State<MobileLogin> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 25,
+                ),
                 Container(
-                  width: 200,
+                  width: 250,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       color: Colors.green,
@@ -132,20 +132,27 @@ class _MobileLoginState extends State<MobileLogin> {
                   height: 5,
                 ),
                 Container(
-                  width: 200,
+                  width: 250,
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                      color: Colors.white70,
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.green)),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const NewAccounts(),
-                      ));
-                    },
-                    child: const Text('Create Account',
-                        style: TextStyle(color: Colors.green)),
+                    color: Colors.white70,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have a garage yet?  "),
+                      InkWell(
+                        child: const Text('Sign Up',
+                            style: TextStyle(color: Colors.blue)),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const NewAccounts(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

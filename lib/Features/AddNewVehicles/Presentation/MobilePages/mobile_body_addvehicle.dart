@@ -122,7 +122,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
         leading: const Padding(
           padding: EdgeInsets.all(10),
           child: Image(
-            image: AssetImage('assets/images/canister.png'),
+            image: AssetImage('assets/images/garage.png'),
           ),
         ),
       ),
@@ -435,13 +435,16 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 10),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Colors.green,
+                      ),
                       height: 50,
                       width: double.infinity,
-                      color: Colors.green,
                       child: TextButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {

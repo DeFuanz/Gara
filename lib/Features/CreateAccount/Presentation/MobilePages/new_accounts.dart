@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewAccounts extends StatefulWidget {
   const NewAccounts({Key? key}) : super(key: key);
@@ -32,35 +33,51 @@ class _NewAccountsState extends State<NewAccounts> {
                 color: Colors.green,
               )),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Create a New Account',
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      'Create a New Account',
+                      style: GoogleFonts.poiretOne(
+                          textStyle: const TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold)),
                     ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  children: [
+                    const Flexible(
+                      child: Text(
+                        'We just need a few things to get your garage set up!',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(
                   height: 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Text('Email',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    TextFormField(
                       controller: _emailTextController,
                       decoration: InputDecoration(
-                          hintText: 'Enter your email',
+                          hintText: 'example@gara.com',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                       validator: (value) {
@@ -71,16 +88,21 @@ class _NewAccountsState extends State<NewAccounts> {
                             : 'Enter a valid email address';
                       },
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Password',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    TextFormField(
                       controller: _password1Controller,
                       decoration: InputDecoration(
-                          hintText: 'Enter a password',
+                          hintText: '8 or more characters',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                       validator: (value) {
@@ -89,13 +111,18 @@ class _NewAccountsState extends State<NewAccounts> {
                             : null;
                       },
                     ),
-                  ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 300,
-                    child: TextFormField(
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('Retype Password',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    TextFormField(
                       controller: _password2Controller,
                       decoration: InputDecoration(
                           hintText: 'Enter Password Again',
@@ -108,7 +135,7 @@ class _NewAccountsState extends State<NewAccounts> {
                             : null;
                       },
                     ),
-                  ),
+                  ],
                 ),
                 Container(
                   width: 300,
@@ -132,7 +159,10 @@ class _NewAccountsState extends State<NewAccounts> {
                                 });
                       }
                     },
-                    child: const Text('Create Account'),
+                    child: const Text(
+                      'Create Account',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
