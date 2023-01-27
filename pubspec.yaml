@@ -34,6 +34,11 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_database: ^10.0.7
+  firebase_auth: ^4.2.1
+  firebase_analytics: ^10.0.7
+  firebase_core: ^2.4.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +67,23 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/images/icons8-petrol-64.png
+    - assets/images/canister.png
     - assets/images/car.png  
+    # sedan images
+    - assets/images/sedans/blacksedan.png  
+    - assets/images/sedans/bluesedan.png  
+    - assets/images/sedans/greensedan.png  
+    - assets/images/sedans/greysedan.png  
+    - assets/images/sedans/whitesedan.png  
+    - assets/images/sedans/redsedan.png 
+    # suv images
+    - assets/images/suvs/redsuv.png
+    - assets/images/suvs/blacksuv.png
+    - assets/images/suvs/bluesuv.png
+    - assets/images/suvs/greensuv.png
+    - assets/images/suvs/greysuv.png
+    - assets/images/suvs/whitesuv.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
