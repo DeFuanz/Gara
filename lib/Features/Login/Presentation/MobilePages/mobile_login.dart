@@ -1,5 +1,5 @@
-import 'package:choring/Pages/mobile_body.dart';
-import 'package:choring/Pages/new_accounts.dart';
+import 'package:choring/Features/VehicleListHome/Presentation/MobilePages/mobile_body.dart';
+import 'package:choring/Features/CreateAccount/Presentation/MobilePages/new_accounts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
