@@ -2,7 +2,7 @@ import 'package:choring/Features/AddNewVehicles/Presentation/MobilePages/mobile_
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:choring/Models/Vehicle.dart';
+import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
@@ -104,7 +104,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               leading: const Padding(
                 padding: EdgeInsets.all(10),
                 child: Image(
-                  image: AssetImage('assets/images/canister.png'),
+                  image: AssetImage('assets/images/garage.png'),
                 ),
               ),
             ),
