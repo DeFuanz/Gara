@@ -157,8 +157,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                       image: AssetImage(
                         image,
                       ),
-                      height: 250,
-                      width: 250,
+                      height: 200,
+                      width: 200,
                     ),
                   ),
                 ),
