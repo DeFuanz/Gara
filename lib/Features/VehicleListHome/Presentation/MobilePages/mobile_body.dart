@@ -95,18 +95,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             ListTile(
               title: const Text('Add Vehicle'),
               onTap: () {
-                Navigator.of(context)
-                    .push(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const MobileBodyAddVehicle(),
                   ),
-                )
-                    .then((value) {
-                  setState(() {
-                    _vehicleList.clear();
-                    vehicleFuture = getVehicles();
-                  });
-                });
+                );
               },
             ),
             ListTile(
@@ -131,12 +124,21 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               final vehicleDetails = Map<String, dynamic>.from(value);
 
               final vehicleTile = ListTile(
-                leading: Icon(Icons.car_rental),
+                tileColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    10,
+                  ),
+                ),
+                leading: Image(
+                  image: AssetImage(vehicleDetails['Image']),
+                ),
                 title: Text(vehicleDetails["Name"]),
               );
               vehicleTiles.add(vehicleTile);
             });
             return ListView(
+              padding: const EdgeInsets.only(bottom: 4),
               children: vehicleTiles,
             );
           } else {
@@ -150,79 +152,5 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
         },
       ),
     );
-
-    // FutureBuilder(
-    //   future: vehicleFuture,
-    //   builder: (context, snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.waiting) {
-    //       return Container(
-    //         height: double.infinity,
-    //         width: double.infinity,
-    //         color: Colors.white,
-    //         child: const Center(child: CircularProgressIndicator()),
-    //       );
-    //     } else {
-    //       return Scaffold(
-    //         appBar: AppBar(
-    //           elevation: 0,
-    //           foregroundColor: Colors.green,
-    //           backgroundColor: Colors.white,
-    //           title: Text(
-    //             'GARA',
-    //             style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
-    //           ),
-    //           leading: const Padding(
-    //             padding: EdgeInsets.all(10),
-    //             child: Image(
-    //               image: AssetImage('assets/images/garage.png'),
-    //             ),
-    //           ),
-    //         ),
-    //         endDrawer: Drawer(
-    //           child: ListView(
-    //             children: [
-    //               ListTile(
-    //                 title: const Text('My Garage'),
-    //                 tileColor: Colors.green,
-    //                 onTap: () {
-    //                   null;
-    //                 },
-    //               ),
-    //               ListTile(
-    //                 title: const Text('Add Vehicle'),
-    //                 onTap: () {
-    //                   Navigator.of(context)
-    //                       .push(
-    //                     MaterialPageRoute(
-    //                       builder: (context) => const MobileBodyAddVehicle(),
-    //                     ),
-    //                   )
-    //                       .then((value) {
-    //                     setState(() {
-    //                       _vehicleList.clear();
-    //                       vehicleFuture = getVehicles();
-    //                     });
-    //                   });
-    //                 },
-    //               ),
-    //               ListTile(
-    //                 title: const Text('Logout'),
-    //                 onTap: () {
-    //                   _auth.signOut();
-    //                   Navigator.popUntil(context, (route) => route.isFirst);
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //         body: ListView.builder(
-    //           itemBuilder: (context, index) {
-    //             Vehicle vehicle = snapshot.data![index];
-    //           },
-    //         ),
-    //       );
-    //     }
-    //   },
-    // );
   }
 }
