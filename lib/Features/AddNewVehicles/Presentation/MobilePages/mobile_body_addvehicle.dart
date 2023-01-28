@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MobileBodyAddVehicle extends StatefulWidget {
   const MobileBodyAddVehicle({Key? key}) : super(key: key);
@@ -115,10 +116,11 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         foregroundColor: Colors.green,
         backgroundColor: Colors.white,
-        title: const Center(child: Text('Xăng')),
+        title: Text('GARA',
+            style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold)),
         leading: const Padding(
           padding: EdgeInsets.all(10),
           child: Image(
@@ -139,6 +141,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             const ListTile(
               title: Text('Add Vehicle'),
+              tileColor: Colors.green,
               onTap: null,
             ),
             ListTile(

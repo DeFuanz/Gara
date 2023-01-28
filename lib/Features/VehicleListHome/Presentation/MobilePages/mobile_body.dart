@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
@@ -97,10 +98,13 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
         } else {
           return Scaffold(
             appBar: AppBar(
-              elevation: 1,
+              elevation: 0,
               foregroundColor: Colors.green,
               backgroundColor: Colors.white,
-              title: const Center(child: Text('Ga-ra')),
+              title: Text(
+                'GARA',
+                style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
+              ),
               leading: const Padding(
                 padding: EdgeInsets.all(10),
                 child: Image(
@@ -111,18 +115,12 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             endDrawer: Drawer(
               child: ListView(
                 children: [
-                  SizedBox(
-                    height: 75,
-                    child: DrawerHeader(
-                      child: Center(
-                        child: Text(
-                          userEmail.toString(),
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                      ),
-                    ),
+                  ListTile(
+                    title: const Text('My Garage'),
+                    tileColor: Colors.green,
+                    onTap: () {
+                      null;
+                    },
                   ),
                   ListTile(
                     title: const Text('Add Vehicle'),

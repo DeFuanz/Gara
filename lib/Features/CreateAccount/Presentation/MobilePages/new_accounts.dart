@@ -90,6 +90,9 @@ class _NewAccountsState extends State<NewAccounts> {
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Column(
                   children: [
                     Row(
@@ -113,55 +116,64 @@ class _NewAccountsState extends State<NewAccounts> {
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text('Retype Password',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    TextFormField(
-                      controller: _password2Controller,
-                      decoration: InputDecoration(
-                          hintText: 'Enter Password Again',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      validator: (value) {
-                        return _password2Controller.text !=
-                                _password1Controller.text
-                            ? 'Passwords do not match. Please try again'
-                            : null;
-                      },
-                    ),
-                  ],
+                const SizedBox(
+                  height: 20,
                 ),
-                Container(
-                  width: 300,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.green),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text('Retype Password',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      TextFormField(
+                        controller: _password2Controller,
+                        decoration: InputDecoration(
+                            hintText: 'Enter Password Again',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        validator: (value) {
+                          return _password2Controller.text !=
+                                  _password1Controller.text
+                              ? 'Passwords do not match. Please try again'
+                              : null;
+                        },
+                      ),
+                    ],
                   ),
-                  child: TextButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: _emailTextController.text,
-                                password: _password1Controller.text)
-                            .then((value) => {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MobileBodyHome()))
-                                });
-                      }
-                    },
-                    child: const Text(
-                      'Create Account',
-                      style: TextStyle(color: Colors.white),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 300,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.green),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                                  email: _emailTextController.text,
+                                  password: _password1Controller.text)
+                              .then((value) => {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MobileBodyHome()))
+                                  });
+                        }
+                      },
+                      child: const Text(
+                        'Create Account',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
