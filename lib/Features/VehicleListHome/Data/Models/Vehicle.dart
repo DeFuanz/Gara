@@ -1,65 +1,29 @@
 class Vehicle {
-  late String? vehicleName;
-  late int? avgMiles;
-  late int? fillUps;
-  late int? totalMiles;
-  late String? color;
-  late String? vehicleType;
-  late String? vehicleImage;
+  final String? vehicleName;
+  final int? avgMiles;
+  final int? fillUps;
+  final int? totalMiles;
+  final String? color;
+  final String? vehicleType;
+  final String? vehicleImage;
 
-  String? get getVehicle {
-    return vehicleName;
-  }
+  Vehicle(
+      {required this.vehicleName,
+      required this.avgMiles,
+      required this.fillUps,
+      required this.totalMiles,
+      required this.color,
+      required this.vehicleType,
+      required this.vehicleImage});
 
-  set setVehicleName(String? name) {
-    vehicleName = name;
-  }
-
-  int? get getAvgMiles {
-    return avgMiles;
-  }
-
-  set setAvgMiles(int? miles) {
-    avgMiles = miles;
-  }
-
-  int? get getFillUps {
-    return fillUps;
-  }
-
-  set setFillUps(int? fills) {
-    fillUps = fills;
-  }
-
-  int? get getTotalMiles {
-    return totalMiles;
-  }
-
-  set setTotalMiles(int? miles) {
-    totalMiles = miles;
-  }
-
-  String? get getColor {
-    return color;
-  }
-
-  set setColor(String colour) {
-    color = colour;
-  }
-
-  String? get getType {
-    return vehicleType;
-  }
-
-  set setType(String? type) {
-    vehicleType = type;
-  }
-
-  String? get getImage {
-    return vehicleImage;
-  }
-
-  set setImage(String? image) {
-    vehicleImage = image;
+  factory Vehicle.fromRTDB(Map<String, dynamic> data) {
+    return Vehicle(
+        vehicleName: data['Name'],
+        avgMiles: data['AvgMiles'],
+        fillUps: data['FillUps'],
+        totalMiles: data['Miles'],
+        color: data['Color'],
+        vehicleType: data['Type'],
+        vehicleImage: data['Image']);
   }
 }

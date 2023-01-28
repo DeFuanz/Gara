@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:html';
+
 import 'package:choring/Features/AddNewVehicles/Presentation/MobilePages/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -49,28 +52,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   Future getVehicles() async {
     try {
       final vehicleSnapshot = await dbRef.child('/Vehicles/$userId').get();
-
-      for (var v in vehicleSnapshot.children) {
-        Vehicle vehicle = Vehicle();
-
-        vehicle.avgMiles = int.parse(v.children.elementAt(0).value.toString());
-        vehicle.color = v.children.elementAt(1).value.toString();
-        vehicle.fillUps = int.parse(v.children.elementAt(2).value.toString());
-        vehicle.vehicleImage = v.children.elementAt(3).value.toString();
-        vehicle.totalMiles =
-            int.parse(v.children.elementAt(4).value.toString());
-        vehicle.vehicleName = v.children.elementAt(5).value.toString();
-        vehicle.vehicleType = v.children.elementAt(5).value.toString();
-
-        _vehicleList.add(vehicle);
-      }
-
-      dropdownValue = _vehicleList.first;
-      miles = _vehicleList.first.totalMiles.toString();
-      fillUps = _vehicleList.first.fillUps.toString();
-      avgMiles = _vehicleList.first.avgMiles.toString();
-      colour = _vehicleList.first.color.toString();
-      image = _vehicleList.first.vehicleImage.toString();
     } on Exception catch (e) {
       print(e);
     }
@@ -85,218 +66,163 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: vehicleFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.white,
-            child: const Center(child: CircularProgressIndicator()),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              foregroundColor: Colors.green,
-              backgroundColor: Colors.white,
-              title: Text(
-                'GARA',
-                style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
-              ),
-              leading: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Image(
-                  image: AssetImage('assets/images/garage.png'),
-                ),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        foregroundColor: Colors.green,
+        backgroundColor: Colors.white,
+        title: Text(
+          'GARA',
+          style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
+        ),
+        leading: const Padding(
+          padding: EdgeInsets.all(10),
+          child: Image(
+            image: AssetImage('assets/images/garage.png'),
+          ),
+        ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text('My Garage'),
+              tileColor: Colors.green,
+              onTap: () {
+                null;
+              },
             ),
-            endDrawer: Drawer(
-              child: ListView(
-                children: [
-                  ListTile(
-                    title: const Text('My Garage'),
-                    tileColor: Colors.green,
-                    onTap: () {
-                      null;
-                    },
+            ListTile(
+              title: const Text('Add Vehicle'),
+              onTap: () {
+                Navigator.of(context)
+                    .push(
+                  MaterialPageRoute(
+                    builder: (context) => const MobileBodyAddVehicle(),
                   ),
-                  ListTile(
-                    title: const Text('Add Vehicle'),
-                    onTap: () {
-                      Navigator.of(context)
-                          .push(
-                        MaterialPageRoute(
-                          builder: (context) => const MobileBodyAddVehicle(),
-                        ),
-                      )
-                          .then((value) {
-                        setState(() {
-                          _vehicleList.clear();
-                          vehicleFuture = getVehicles();
-                        });
-                      });
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Logout'),
-                    onTap: () {
-                      _auth.signOut();
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    },
-                  ),
-                ],
-              ),
+                )
+                    .then((value) {
+                  setState(() {
+                    _vehicleList.clear();
+                    vehicleFuture = getVehicles();
+                  });
+                });
+              },
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Image(
-                      image: AssetImage(
-                        image,
-                      ),
-                      height: 200,
-                      width: 200,
-                    ),
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[350],
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(5.0, 5.0), //(x,y)
-                          blurRadius: 6.0,
-                        ),
-                      ],
-                    ),
-                    child: SizedBox(
-                      //Contains Car details
-                      height: 320,
-                      child: Column(
-                        children: [
-                          Center(
-                            //Car selection
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(0, 15, 0, 0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.green,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownButton(
-                                      hint: const Text("Select a vehicle"),
-                                      iconSize: 0,
-                                      alignment: Alignment.center,
-                                      underline: Container(),
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 25),
-                                      dropdownColor: Colors.green,
-                                      value: dropdownValue,
-                                      onChanged: (Vehicle? newValue) {
-                                        setState(() {
-                                          dropdownValue = newValue!;
+            ListTile(
+              title: const Text('Logout'),
+              onTap: () {
+                _auth.signOut();
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+            ),
+          ],
+        ),
+      ),
+      body: StreamBuilder(
+        stream: dbRef.child('/Vehicles/$userId').onValue,
+        builder: (context, snapshot) {
+          final vehicleTiles = <ListTile>[];
+          if (snapshot.hasData) {
+            final userVehicles = Map<String, dynamic>.from(
+                (snapshot.data! as DatabaseEvent).snapshot.value
+                    as Map<String, dynamic>);
+            userVehicles.forEach((key, value) {
+              final vehicleDetails = Map<String, dynamic>.from(value);
 
-                                          miles =
-                                              newValue.totalMiles.toString();
-                                          avgMiles =
-                                              newValue.avgMiles.toString();
-                                          fillUps = newValue.fillUps.toString();
-                                          image =
-                                              newValue.vehicleImage.toString();
-                                        });
-                                      },
-                                      items: _vehicleList
-                                          .map<DropdownMenuItem<Vehicle>>(
-                                              (Vehicle value) {
-                                        return DropdownMenuItem<Vehicle>(
-                                          value: value,
-                                          child: Text(
-                                              value.vehicleName.toString()),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    const Text('Miles:',
-                                        style: TextStyle(fontSize: 20)),
-                                    Text(miles,
-                                        style: const TextStyle(fontSize: 20)),
-                                  ],
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                  child: const Divider(
-                                    height: 2,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    const Text('Avg Miles:',
-                                        style: TextStyle(fontSize: 20)),
-                                    Text(avgMiles,
-                                        style: const TextStyle(fontSize: 20)),
-                                  ],
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                  child: const Divider(
-                                    height: 2,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    const Text('Fill Ups:',
-                                        style: TextStyle(fontSize: 20)),
-                                    Text(fillUps,
-                                        style: const TextStyle(fontSize: 20)),
-                                  ],
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                  child: const Divider(
-                                    height: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }
-      },
+              final vehicleTile = ListTile(
+                leading: Icon(Icons.car_rental),
+                title: Text(vehicleDetails["Name"]),
+              );
+              vehicleTiles.add(vehicleTile);
+            });
+            return ListView(
+              children: vehicleTiles,
+            );
+          } else {
+            return Container(
+              height: double.infinity,
+              width: double.infinity,
+              color: Colors.white,
+              child: const Center(child: CircularProgressIndicator()),
+            );
+          }
+        },
+      ),
     );
+
+    // FutureBuilder(
+    //   future: vehicleFuture,
+    //   builder: (context, snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return Container(
+    //         height: double.infinity,
+    //         width: double.infinity,
+    //         color: Colors.white,
+    //         child: const Center(child: CircularProgressIndicator()),
+    //       );
+    //     } else {
+    //       return Scaffold(
+    //         appBar: AppBar(
+    //           elevation: 0,
+    //           foregroundColor: Colors.green,
+    //           backgroundColor: Colors.white,
+    //           title: Text(
+    //             'GARA',
+    //             style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
+    //           ),
+    //           leading: const Padding(
+    //             padding: EdgeInsets.all(10),
+    //             child: Image(
+    //               image: AssetImage('assets/images/garage.png'),
+    //             ),
+    //           ),
+    //         ),
+    //         endDrawer: Drawer(
+    //           child: ListView(
+    //             children: [
+    //               ListTile(
+    //                 title: const Text('My Garage'),
+    //                 tileColor: Colors.green,
+    //                 onTap: () {
+    //                   null;
+    //                 },
+    //               ),
+    //               ListTile(
+    //                 title: const Text('Add Vehicle'),
+    //                 onTap: () {
+    //                   Navigator.of(context)
+    //                       .push(
+    //                     MaterialPageRoute(
+    //                       builder: (context) => const MobileBodyAddVehicle(),
+    //                     ),
+    //                   )
+    //                       .then((value) {
+    //                     setState(() {
+    //                       _vehicleList.clear();
+    //                       vehicleFuture = getVehicles();
+    //                     });
+    //                   });
+    //                 },
+    //               ),
+    //               ListTile(
+    //                 title: const Text('Logout'),
+    //                 onTap: () {
+    //                   _auth.signOut();
+    //                   Navigator.popUntil(context, (route) => route.isFirst);
+    //                 },
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //         body: ListView.builder(
+    //           itemBuilder: (context, index) {
+    //             Vehicle vehicle = snapshot.data![index];
+    //           },
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
   }
 }
