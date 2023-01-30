@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MobileBodyAddVehicle extends StatefulWidget {
   const MobileBodyAddVehicle({Key? key}) : super(key: key);
@@ -115,14 +116,15 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         foregroundColor: Colors.green,
         backgroundColor: Colors.white,
-        title: const Center(child: Text('Xăng')),
+        title: Text('GARA',
+            style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold)),
         leading: const Padding(
           padding: EdgeInsets.all(10),
           child: Image(
-            image: AssetImage('assets/images/canister.png'),
+            image: AssetImage('assets/images/garage.png'),
           ),
         ),
       ),
@@ -139,6 +141,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             const ListTile(
               title: Text('Add Vehicle'),
+              tileColor: Colors.green,
               onTap: null,
             ),
             ListTile(
@@ -435,13 +438,16 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 10),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        color: Colors.green,
+                      ),
                       height: 50,
                       width: double.infinity,
-                      color: Colors.green,
                       child: TextButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
