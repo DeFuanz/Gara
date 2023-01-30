@@ -339,8 +339,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Padding(
+              children: const [
+                Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text('Vehicle Type',
                       style:

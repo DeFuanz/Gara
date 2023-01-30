@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class Vehicle {
   final String? vehicleName;
   final int? avgMiles;

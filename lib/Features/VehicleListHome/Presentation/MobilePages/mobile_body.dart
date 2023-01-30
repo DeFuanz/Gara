@@ -98,7 +98,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
           if (snapshot.hasData) {
             final userVehicles = Map<String, dynamic>.from(
                 (snapshot.data! as DatabaseEvent).snapshot.value
-                    as Map<String, dynamic>);
+                    as Map<Object?, Object?>);
             userVehicles.forEach((key, value) {
               final vehicleDetails = Map<String, dynamic>.from(value);
 
@@ -116,9 +116,14 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               );
               vehicleTiles.add(vehicleTile);
             });
+
             return ListView(
               padding: const EdgeInsets.only(bottom: 4),
               children: vehicleTiles,
+            );
+          } else if (snapshot.hasError) {
+            return Container(
+              color: Colors.green,
             );
           } else {
             return Container(

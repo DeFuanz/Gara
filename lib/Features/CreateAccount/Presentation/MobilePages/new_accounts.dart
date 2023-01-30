@@ -1,13 +1,11 @@
 import 'package:choring/Features/VehicleListHome/Presentation/MobilePages/mobile_body.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NewAccounts extends StatefulWidget {
   const NewAccounts({Key? key}) : super(key: key);
+  @override
   _NewAccountsState createState() => _NewAccountsState();
 }
 
@@ -53,8 +51,8 @@ class _NewAccountsState extends State<NewAccounts> {
                   height: 25,
                 ),
                 Row(
-                  children: [
-                    const Flexible(
+                  children: const [
+                    Flexible(
                       child: Text(
                         'We just need a few things to get your garage set up!',
                         style: TextStyle(fontSize: 20),
@@ -97,8 +95,8 @@ class _NewAccountsState extends State<NewAccounts> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text('Password',
+                      children: const [
+                        Text('Password',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     ),
@@ -124,8 +122,8 @@ class _NewAccountsState extends State<NewAccounts> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Text('Retype Password',
+                        children: const [
+                          Text('Retype Password',
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
