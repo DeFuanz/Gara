@@ -1,11 +1,7 @@
-import 'dart:async';
-import 'dart:html';
-
 import 'package:choring/Features/AddNewVehicles/Presentation/MobilePages/mobile_body_addvehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MobileBodyHome extends StatefulWidget {
@@ -16,21 +12,16 @@ class MobileBodyHome extends StatefulWidget {
 }
 
 class _MobileBodyHomeState extends State<MobileBodyHome> {
+  //Defualt Values for
   String miles = "0";
   String avgMiles = "0";
   String fillUps = "0";
   String colour = "";
   String image = "assets/images/car.png";
-  String? userEmail = "userEmail";
-  String? userId;
-  final List<Vehicle> _vehicleList = <Vehicle>[];
-  Vehicle? dropdownValue;
-
-  late var vehicleFuture;
 
   //create firebase instance variable and new user object variable
   final _auth = FirebaseAuth.instance;
-  User? loggedInUser;
+  String? userId;
   DatabaseReference dbRef = FirebaseDatabase.instance.ref();
 
   //Grabbed logged in user object
@@ -38,20 +29,9 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     try {
       final user = _auth.currentUser;
       if (user != null) {
-        loggedInUser = user;
-        userEmail = loggedInUser!.email;
-        userId = loggedInUser!.uid;
+        userId = user.uid;
         print(user.uid);
       }
-    } on Exception catch (e) {
-      print(e);
-    }
-  }
-
-  //grab users vehicle objects from db
-  Future getVehicles() async {
-    try {
-      final vehicleSnapshot = await dbRef.child('/Vehicles/$userId').get();
     } on Exception catch (e) {
       print(e);
     }
@@ -60,7 +40,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   @override
   void initState() {
     getCurrenUser();
-    vehicleFuture = getVehicles();
     super.initState();
   }
 

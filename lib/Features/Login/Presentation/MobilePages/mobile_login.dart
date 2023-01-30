@@ -116,7 +116,7 @@ class _MobileLoginState extends State<MobileLogin> {
                                       child: ListBody(
                                         children: const <Widget>[
                                           Text(
-                                              'Uable to login. Please try again later'),
+                                              'Unable to login. Please try again later'),
                                         ],
                                       ),
                                     ),
@@ -125,35 +125,28 @@ class _MobileLoginState extends State<MobileLogin> {
                       }
                     },
                     child: const Text('Login',
-                        style: TextStyle(color: Colors.black)),
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
-                Container(
-                  width: 250,
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.white70,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have a garage yet?  "),
-                      InkWell(
-                        child: const Text('Sign Up',
-                            style: TextStyle(color: Colors.blue)),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const NewAccounts(),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't have a garage yet?  "),
+                    InkWell(
+                      child: const Text('Sign Up',
+                          style: TextStyle(color: Colors.blue)),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const NewAccounts(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
