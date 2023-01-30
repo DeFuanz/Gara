@@ -31,94 +31,94 @@ class _NewAccountsState extends State<NewAccounts> {
                 color: Colors.green,
               )),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Create a New Account',
-                      style: GoogleFonts.poiretOne(
-                          textStyle: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.bold)),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  children: const [
-                    Flexible(
-                      child: Text(
-                        'We just need a few things to get your garage set up!',
-                        style: TextStyle(fontSize: 20),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Create a New Account',
+                        style: GoogleFonts.poiretOne(
+                            textStyle: const TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold)),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Text('Email',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    TextFormField(
-                      controller: _emailTextController,
-                      decoration: InputDecoration(
-                          hintText: 'example@gara.com',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      validator: (value) {
-                        return RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(_emailTextController.text)
-                            ? null
-                            : 'Enter a valid email address';
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Text('Password',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    TextFormField(
-                      controller: _password1Controller,
-                      decoration: InputDecoration(
-                          hintText: '8 or more characters',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      validator: (value) {
-                        return _password1Controller.text.length < 8
-                            ? 'Password must be at least 8 character'
-                            : null;
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Column(
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    children: const [
+                      Flexible(
+                        child: Text(
+                          'We just need a few things to get your garage set up!',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text('Email',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      TextFormField(
+                        controller: _emailTextController,
+                        decoration: InputDecoration(
+                            hintText: 'example@gara.com',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        validator: (value) {
+                          return RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(_emailTextController.text)
+                              ? null
+                              : 'Enter a valid email address';
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text('Password',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      TextFormField(
+                        controller: _password1Controller,
+                        decoration: InputDecoration(
+                            hintText: '8 or more characters',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        validator: (value) {
+                          return _password1Controller.text.length < 8
+                              ? 'Password must be at least 8 character'
+                              : null;
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -142,10 +142,10 @@ class _NewAccountsState extends State<NewAccounts> {
                       ),
                     ],
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
                     width: 300,
                     height: 50,
                     decoration: BoxDecoration(
@@ -174,8 +174,8 @@ class _NewAccountsState extends State<NewAccounts> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

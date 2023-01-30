@@ -94,7 +94,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       body: StreamBuilder(
         stream: dbRef.child('/Vehicles/$userId').onValue,
         builder: (context, snapshot) {
-          final vehicleTiles = <ListTile>[];
+          final vehicleTiles = <SizedBox>[];
           if (snapshot.hasData) {
             final userVehicles = Map<String, dynamic>.from(
                 (snapshot.data! as DatabaseEvent).snapshot.value
@@ -102,17 +102,80 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             userVehicles.forEach((key, value) {
               final vehicleDetails = Map<String, dynamic>.from(value);
 
-              final vehicleTile = ListTile(
-                tileColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    10,
+              final vehicleTile = SizedBox(
+                height: 150,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Colors.green)),
+                    color: Colors.white,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 33,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Image(
+                                image: AssetImage(vehicleDetails["Image"])),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 66,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 50,
+                                child: Center(
+                                  child: Text(
+                                    vehicleDetails["Name"],
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 20,
+                                child: Text(
+                                    'Total Miles: ${vehicleDetails["Miles"].toString()}'),
+                              ),
+                              Expanded(
+                                flex: 30,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      color: Colors.green,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                            Icons.local_gas_station_rounded),
+                                        onPressed: () {
+                                          null;
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.green,
+                                      child: IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        onPressed: () {
+                                          null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                leading: Image(
-                  image: AssetImage(vehicleDetails['Image']),
-                ),
-                title: Text(vehicleDetails["Name"]),
               );
               vehicleTiles.add(vehicleTile);
             });
