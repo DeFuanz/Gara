@@ -52,36 +52,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             image: AssetImage('assets/images/garage.png'),
           ),
         ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('My Garage'),
-              tileColor: Colors.green,
-              onTap: () {
-                null;
-              },
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.grey,
             ),
-            ListTile(
-              title: const Text('Add Vehicle'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const MobileBodyAddVehicle(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                _auth.signOut();
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-            ),
-          ],
-        ),
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pop(context);
+            },
+          ),
+        ],
       ),
       body: StreamBuilder(
         stream: dbRef.child('/Vehicles/$userId').onValue,
@@ -103,7 +85,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               }
 
               final vehicleTile = SizedBox(
-                height: 150,
+                height: 100,
                 width: 350,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -115,7 +97,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 30,
+                          flex: 25,
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Image(
@@ -127,7 +109,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                           child: Column(
                             children: [
                               Expanded(
-                                flex: 50,
+                                flex: 60,
                                 child: Center(
                                   child: Text(
                                     vehicleDetails["Name"],
@@ -138,49 +120,21 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 ),
                               ),
                               Expanded(
-                                flex: 20,
+                                flex: 40,
                                 child: Text(
                                     'Total Miles: ${vehicleDetails["Miles"].toString()}'),
-                              ),
-                              Expanded(
-                                flex: 30,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(3.0),
-                                      child: Container(
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0)),
-                                        child: TextButton(
-                                          child: const Text(
-                                            'View Stats',
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            null;
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
                             ],
                           ),
                         ),
                         Expanded(
-                          flex: 10,
+                          flex: 15,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.delete_forever,
-                                    color: Colors.red),
+                                icon: const Icon(Icons.query_stats_rounded,
+                                    color: Colors.blue),
                                 onPressed: () {
                                   null;
                                 },
@@ -236,14 +190,25 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                 .withOpacity(.3),
                                           ),
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: const [
                                                   Icon(Icons.drive_eta),
-                                                  Text('Total Miles'),
+                                                  Text(
+                                                    'Total Miles',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(totalMiles.toString()),
                                                 ],
@@ -266,14 +231,25 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                 .withOpacity(.3),
                                           ),
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: const [
                                                   Icon(Icons.add_road_outlined),
-                                                  Text('Average Miles'),
+                                                  Text(
+                                                    'Average Miles',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(avgMiles.toString()),
                                                 ],
@@ -303,12 +279,21 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                 .withOpacity(.3),
                                           ),
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: const [
                                                   Icon(Icons
                                                       .local_gas_station_rounded),
-                                                  Text('Total Gas Spending'),
+                                                  Text(
+                                                    'Total Gas Spending',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -329,11 +314,20 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                 .withOpacity(.3),
                                           ),
                                           child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: const [
                                                   Icon(Icons.attach_money),
-                                                  Text('Average Gas Spending'),
+                                                  Text(
+                                                    'Average Gas Spending',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 ],
                                               ),
                                             ],

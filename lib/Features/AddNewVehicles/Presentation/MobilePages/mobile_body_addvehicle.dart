@@ -117,41 +117,20 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        foregroundColor: Colors.green,
         backgroundColor: Colors.white,
         title: Text('GARA',
             style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold)),
-        leading: const Padding(
-          padding: EdgeInsets.all(10),
-          child: Image(
-            image: AssetImage('assets/images/garage.png'),
+        leading: Padding(
+          padding: const EdgeInsets.all(10),
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.green,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-        ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text('My Garage'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-            const ListTile(
-              title: Text('Add Vehicle'),
-              tileColor: Colors.green,
-              onTap: null,
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                _auth.signOut();
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-            ),
-          ],
         ),
       ),
       body: Form(
