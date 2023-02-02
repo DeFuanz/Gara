@@ -29,12 +29,14 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     }
   }
 
+  //Initialize State
   @override
   void initState() {
     getCurrenUser();
     super.initState();
   }
 
+  //Build Widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
