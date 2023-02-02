@@ -12,13 +12,6 @@ class MobileBodyHome extends StatefulWidget {
 }
 
 class _MobileBodyHomeState extends State<MobileBodyHome> {
-  //Defualt Values for
-  String miles = "0";
-  String avgMiles = "0";
-  String fillUps = "0";
-  String colour = "";
-  String image = "assets/images/car.png";
-
   //create firebase instance variable and new user object variable
   final _auth = FirebaseAuth.instance;
   String? userId;
@@ -30,7 +23,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       final user = _auth.currentUser;
       if (user != null) {
         userId = user.uid;
-        print(user.uid);
       }
     } on Exception catch (e) {
       print(e);
@@ -95,12 +87,20 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
         stream: dbRef.child('/Vehicles/$userId').onValue,
         builder: (context, snapshot) {
           final vehicleTiles = <SizedBox>[];
+          num totalMiles = 0;
+          num avgMiles = 0;
+
           if (snapshot.hasData) {
             final userVehicles = Map<String, dynamic>.from(
                 (snapshot.data! as DatabaseEvent).snapshot.value
                     as Map<Object?, Object?>);
             userVehicles.forEach((key, value) {
               final vehicleDetails = Map<String, dynamic>.from(value);
+
+              for (int i = 0; i < userVehicles.length; i++) {
+                totalMiles += vehicleDetails["Miles"];
+                avgMiles = totalMiles / userVehicles.length;
+              }
 
               final vehicleTile = SizedBox(
                 height: 150,
@@ -243,6 +243,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                   Text('Total Miles'),
                                                 ],
                                               ),
+                                              Row(
+                                                children: [
+                                                  Text(totalMiles.toString()),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -266,6 +271,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                 children: const [
                                                   Icon(Icons.add_road_outlined),
                                                   Text('Average Miles'),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(avgMiles.toString()),
                                                 ],
                                               ),
                                             ],
