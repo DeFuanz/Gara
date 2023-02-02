@@ -231,12 +231,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: Color.fromARGB(
-                                                255, 150, 218, 153),
+                                            color: const Color.fromARGB(
+                                                    255, 70, 255, 79)
+                                                .withOpacity(.3),
                                           ),
                                           child: Column(
                                             children: [
-                                              const Text('Total Miles'),
+                                              Row(
+                                                children: const [
+                                                  Icon(Icons.drive_eta),
+                                                  Text('Total Miles'),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -250,12 +256,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: Color.fromARGB(
-                                                255, 255, 192, 133),
+                                            color: const Color.fromARGB(
+                                                    255, 70, 255, 79)
+                                                .withOpacity(.3),
                                           ),
                                           child: Column(
                                             children: [
-                                              const Text('Average Miles'),
+                                              Row(
+                                                children: const [
+                                                  Icon(Icons.add_road_outlined),
+                                                  Text('Average Miles'),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -276,12 +288,19 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: Color.fromARGB(
-                                                255, 147, 233, 255),
+                                            color: const Color.fromARGB(
+                                                    255, 70, 255, 79)
+                                                .withOpacity(.3),
                                           ),
                                           child: Column(
                                             children: [
-                                              const Text('Total Gas Spending'),
+                                              Row(
+                                                children: const [
+                                                  Icon(Icons
+                                                      .local_gas_station_rounded),
+                                                  Text('Total Gas Spending'),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -295,13 +314,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: Color.fromARGB(
-                                                255, 248, 255, 147),
+                                            color: const Color.fromARGB(
+                                                    255, 70, 255, 79)
+                                                .withOpacity(.3),
                                           ),
                                           child: Column(
                                             children: [
-                                              const Text(
-                                                  'Average Gas Spending'),
+                                              Row(
+                                                children: const [
+                                                  Icon(Icons.attach_money),
+                                                  Text('Average Gas Spending'),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -316,8 +340,34 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Vehicles',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.add_box_rounded,
+                            color: Colors.green[900],
+                          ),
+                          onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const MobileBodyAddVehicle()))),
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
-                    flex: 50,
+                    flex: 40,
                     child: ListView(
                       padding: const EdgeInsets.only(bottom: 4),
                       children: vehicleTiles,
@@ -328,8 +378,10 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             );
           } else if (snapshot.hasError) {
             return Container(
+              height: double.infinity,
+              width: double.infinity,
               color: Colors.green,
-              child: const Text('Error Loading'),
+              child: const Center(child: Text('Error Loading')),
             );
           } else {
             return Container(
