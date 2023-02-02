@@ -104,6 +104,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
 
               final vehicleTile = SizedBox(
                 height: 150,
+                width: 350,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
@@ -114,7 +115,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 33,
+                          flex: 30,
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
                             child: Image(
@@ -122,7 +123,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                           ),
                         ),
                         Expanded(
-                          flex: 66,
+                          flex: 60,
                           child: Column(
                             children: [
                               Expanded(
@@ -144,30 +145,45 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                               Expanded(
                                 flex: 30,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      color: Colors.green,
-                                      child: IconButton(
-                                        icon: const Icon(
-                                            Icons.local_gas_station_rounded),
-                                        onPressed: () {
-                                          null;
-                                        },
-                                      ),
-                                    ),
-                                    Container(
-                                      color: Colors.green,
-                                      child: IconButton(
-                                        icon: const Icon(Icons.delete),
-                                        onPressed: () {
-                                          null;
-                                        },
+                                    Padding(
+                                      padding: const EdgeInsets.all(3.0),
+                                      child: Container(
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        child: TextButton(
+                                          child: const Text(
+                                            'View Stats',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            null;
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 10,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.delete_forever,
+                                    color: Colors.red),
+                                onPressed: () {
+                                  null;
+                                },
                               ),
                             ],
                           ),
@@ -180,13 +196,140 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               vehicleTiles.add(vehicleTile);
             });
 
-            return ListView(
-              padding: const EdgeInsets.only(bottom: 4),
-              children: vehicleTiles,
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: 50,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Text(
+                                'My Garage',
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 50,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Color.fromARGB(
+                                                255, 150, 218, 153),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              const Text('Total Miles'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Color.fromARGB(
+                                                255, 255, 192, 133),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              const Text('Average Miles'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 50,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Color.fromARGB(
+                                                255, 147, 233, 255),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              const Text('Total Gas Spending'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Color.fromARGB(
+                                                255, 248, 255, 147),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                  'Average Gas Spending'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 50,
+                    child: ListView(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      children: vehicleTiles,
+                    ),
+                  ),
+                ],
+              ),
             );
           } else if (snapshot.hasError) {
             return Container(
               color: Colors.green,
+              child: const Text('Error Loading'),
             );
           } else {
             return Container(

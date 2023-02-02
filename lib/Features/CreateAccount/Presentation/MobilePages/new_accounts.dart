@@ -31,8 +31,8 @@ class _NewAccountsState extends State<NewAccounts> {
                 color: Colors.green,
               )),
         ),
-        body: SingleChildScrollView(
-          child: Center(
+        body: Center(
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -64,83 +64,92 @@ class _NewAccountsState extends State<NewAccounts> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text('Email',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      TextFormField(
-                        controller: _emailTextController,
-                        decoration: InputDecoration(
-                            hintText: 'example@gara.com',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        validator: (value) {
-                          return RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(_emailTextController.text)
-                              ? null
-                              : 'Enter a valid email address';
-                        },
-                      ),
-                    ],
+                  SizedBox(
+                    width: 350,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text('Email',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        TextFormField(
+                          controller: _emailTextController,
+                          decoration: InputDecoration(
+                              hintText: 'example@gara.com',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          validator: (value) {
+                            return RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(_emailTextController.text)
+                                ? null
+                                : 'Enter a valid email address';
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text('Password',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      TextFormField(
-                        controller: _password1Controller,
-                        decoration: InputDecoration(
-                            hintText: '8 or more characters',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        validator: (value) {
-                          return _password1Controller.text.length < 8
-                              ? 'Password must be at least 8 character'
-                              : null;
-                        },
-                      ),
-                    ],
+                  SizedBox(
+                    width: 350,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text('Password',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        TextFormField(
+                          controller: _password1Controller,
+                          decoration: InputDecoration(
+                              hintText: '8 or more characters',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          validator: (value) {
+                            return _password1Controller.text.length < 8
+                                ? 'Password must be at least 8 character'
+                                : null;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text('Retype Password',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      TextFormField(
-                        controller: _password2Controller,
-                        decoration: InputDecoration(
-                            hintText: 'Enter Password Again',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        validator: (value) {
-                          return _password2Controller.text !=
-                                  _password1Controller.text
-                              ? 'Passwords do not match. Please try again'
-                              : null;
-                        },
-                      ),
-                    ],
+                  SizedBox(
+                    width: 350,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: const [
+                            Text('Retype Password',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                        TextFormField(
+                          controller: _password2Controller,
+                          decoration: InputDecoration(
+                              hintText: 'Enter Password Again',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          validator: (value) {
+                            return _password2Controller.text !=
+                                    _password1Controller.text
+                                ? 'Passwords do not match. Please try again'
+                                : null;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     height: 50,

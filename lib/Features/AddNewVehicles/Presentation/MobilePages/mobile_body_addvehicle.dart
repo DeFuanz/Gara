@@ -354,9 +354,11 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    color: sedanSelected ? Colors.green : Colors.grey,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: sedanSelected ? Colors.green : Colors.grey),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+                      padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
                       child: TextButton(
                         onPressed: (() {
                           setState(() {
@@ -374,15 +376,19 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                           });
                         }),
                         child: const Text('Sedan',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 12)),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
                   Container(
-                    color: sedanSelected ? Colors.grey : Colors.green,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: sedanSelected ? Colors.grey : Colors.green),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+                      padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
                       child: TextButton(
                         onPressed: (() {
                           setState(() {
@@ -400,8 +406,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                           });
                         }),
                         child: const Text('SUV',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 12)),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
