@@ -40,10 +40,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 252, 252, 252),
       appBar: AppBar(
         elevation: 0,
         foregroundColor: Colors.green,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 252, 252, 252),
         title: Text(
           'GARA',
           style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
@@ -91,71 +92,81 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               final vehicleTile = SizedBox(
                 height: 75,
                 width: 350,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(color: Colors.green)),
-                  color: Colors.white,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 25,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child:
-                              Image(image: AssetImage(vehicleDetails["Image"])),
-                        ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Colors.green)),
+                    color: Colors.white,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        color: Colors.white,
                       ),
-                      Expanded(
-                        flex: 60,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 60,
-                              child: Center(
-                                child: Text(
-                                  vehicleDetails["Name"],
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                              ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 25,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Image(
+                                  image: AssetImage(vehicleDetails["Image"])),
                             ),
-                            Expanded(
-                              flex: 40,
-                              child: Text(
-                                  'Total Miles: ${vehicleDetails["Miles"].toString()}'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 15,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.green,
-                                  ),
-                                  child: IconButton(
-                                    icon: const Icon(Icons.query_stats_rounded,
-                                        color: Colors.white),
-                                    onPressed: () {
-                                      null;
-                                    },
+                          ),
+                          Expanded(
+                            flex: 60,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 60,
+                                  child: Center(
+                                    child: Text(
+                                      vehicleDetails["Name"],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                Expanded(
+                                  flex: 40,
+                                  child: Text(
+                                      'Total Miles: ${vehicleDetails["Miles"].toString()}'),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          Expanded(
+                            flex: 15,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.green,
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(
+                                            Icons.query_stats_rounded,
+                                            color: Colors.white),
+                                        onPressed: () {
+                                          null;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               );
@@ -195,11 +206,19 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.green),
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: const Color.fromARGB(
-                                                    255, 70, 255, 79)
-                                                .withOpacity(.3),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 8,
+                                                offset: Offset(
+                                                    2, 4), // Shadow position
+                                              ),
+                                            ],
+                                            color: Colors.white,
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
@@ -243,11 +262,19 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.green),
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: const Color.fromARGB(
-                                                    255, 70, 255, 79)
-                                                .withOpacity(.3),
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 8,
+                                                offset: Offset(
+                                                    2, 4), // Shadow position
+                                              ),
+                                            ],
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
@@ -296,11 +323,19 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.green),
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: const Color.fromARGB(
-                                                    255, 70, 255, 79)
-                                                .withOpacity(.3),
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 8,
+                                                offset: Offset(
+                                                    2, 4), // Shadow position
+                                              ),
+                                            ],
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
@@ -345,11 +380,19 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
                                           decoration: BoxDecoration(
+                                            border:
+                                                Border.all(color: Colors.green),
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: const Color.fromARGB(
-                                                    255, 70, 255, 79)
-                                                .withOpacity(.3),
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: Colors.grey,
+                                                blurRadius: 8,
+                                                offset: Offset(
+                                                    2, 4), // Shadow position
+                                              ),
+                                            ],
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
@@ -409,10 +452,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         IconButton(
+                          padding: EdgeInsets.zero,
                           icon: const Icon(
                             Icons.add_box_outlined,
                             size: 40,
-                            color: Color.fromARGB(255, 74, 194, 78),
+                            color: Colors.black,
                           ),
                           onPressed: () => Navigator.of(context).push(
                               MaterialPageRoute(
