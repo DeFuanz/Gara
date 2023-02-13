@@ -133,298 +133,298 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
           ),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: Text('Select Car Color',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 200,
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 180,
-                  enlargeCenterPage: true,
-                  aspectRatio: 16 / 9,
-                  enableInfiniteScroll: true,
-                  viewportFraction: 0.5,
-                ),
-                items: [
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: blackCarSelected ? 1.0 : .2,
-                      child: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            carSelectedColor = "Black";
-                            carSelectedImage = blackCar;
-
-                            blackCarSelected = true;
-                            blueCarSelected = false;
-                            greenCarSelected = false;
-                            greyCarSelected = false;
-                            redCarSelected = false;
-                            whiteCarSelected = false;
-                          });
-                        },
-                        icon: Image.asset(blackCar),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: blueCarSelected ? 1.0 : 0.2,
-                      child: IconButton(
-                        padding: const EdgeInsets.all(10),
-                        onPressed: () {
-                          setState(() {
-                            carSelectedColor = "Blue";
-                            carSelectedImage = blueCar;
-
-                            blackCarSelected = false;
-                            blueCarSelected = true;
-                            greenCarSelected = false;
-                            greyCarSelected = false;
-                            redCarSelected = false;
-                            whiteCarSelected = false;
-                          });
-                        },
-                        icon: Image.asset(blueCar),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: greenCarSelected ? 1.0 : 0.2,
-                      child: IconButton(
-                        padding: const EdgeInsets.all(10),
-                        onPressed: (() {
-                          setState(() {
-                            carSelectedColor = "Green";
-                            carSelectedImage = greenCar;
-
-                            blackCarSelected = false;
-                            blueCarSelected = false;
-                            greenCarSelected = true;
-                            greyCarSelected = false;
-                            redCarSelected = false;
-                            whiteCarSelected = false;
-                          });
-                        }),
-                        icon: Image.asset(greenCar),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: greyCarSelected ? 1.0 : 0.2,
-                      child: IconButton(
-                        padding: const EdgeInsets.all(10),
-                        onPressed: () {
-                          setState(() {
-                            carSelectedColor = "Grey";
-                            carSelectedImage = greyCar;
-
-                            blackCarSelected = false;
-                            blueCarSelected = false;
-                            greenCarSelected = false;
-                            greyCarSelected = true;
-                            redCarSelected = false;
-                            whiteCarSelected = false;
-                          });
-                        },
-                        icon: Image.asset(greyCar),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: redCarSelected ? 1.0 : 0.2,
-                      child: IconButton(
-                        padding: const EdgeInsets.all(10),
-                        onPressed: (() {
-                          setState(() {
-                            carSelectedColor = "Red";
-                            carSelectedImage = redCar;
-
-                            blackCarSelected = false;
-                            blueCarSelected = false;
-                            greenCarSelected = false;
-                            greyCarSelected = false;
-                            redCarSelected = true;
-                            whiteCarSelected = false;
-                          });
-                        }),
-                        icon: Image.asset(redCar),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 175,
-                    width: 175,
-                    child: Opacity(
-                      opacity: whiteCarSelected ? 1.0 : 0.2,
-                      child: IconButton(
-                        padding: const EdgeInsets.all(10),
-                        onPressed: (() {
-                          setState(() {
-                            carSelectedColor = "White";
-                            carSelectedImage = whiteCar;
-
-                            blackCarSelected = false;
-                            blueCarSelected = false;
-                            greenCarSelected = false;
-                            greyCarSelected = false;
-                            redCarSelected = false;
-                            whiteCarSelected = true;
-                          });
-                        }),
-                        icon: Image.asset(whiteCar),
-                      ),
-                    ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Text('Select Car Color',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 8.0),
-                  child: Text('Selected Color: $carSelectedColor',
-                      style: const TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.normal)),
+              SizedBox(
+                height: 200,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 180,
+                    enlargeCenterPage: true,
+                    aspectRatio: 16 / 9,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 0.5,
+                  ),
+                  items: [
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: blackCarSelected ? 1.0 : .2,
+                        child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              carSelectedColor = "Black";
+                              carSelectedImage = blackCar;
+
+                              blackCarSelected = true;
+                              blueCarSelected = false;
+                              greenCarSelected = false;
+                              greyCarSelected = false;
+                              redCarSelected = false;
+                              whiteCarSelected = false;
+                            });
+                          },
+                          icon: Image.asset(blackCar),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: blueCarSelected ? 1.0 : 0.2,
+                        child: IconButton(
+                          padding: const EdgeInsets.all(10),
+                          onPressed: () {
+                            setState(() {
+                              carSelectedColor = "Blue";
+                              carSelectedImage = blueCar;
+
+                              blackCarSelected = false;
+                              blueCarSelected = true;
+                              greenCarSelected = false;
+                              greyCarSelected = false;
+                              redCarSelected = false;
+                              whiteCarSelected = false;
+                            });
+                          },
+                          icon: Image.asset(blueCar),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: greenCarSelected ? 1.0 : 0.2,
+                        child: IconButton(
+                          padding: const EdgeInsets.all(10),
+                          onPressed: (() {
+                            setState(() {
+                              carSelectedColor = "Green";
+                              carSelectedImage = greenCar;
+
+                              blackCarSelected = false;
+                              blueCarSelected = false;
+                              greenCarSelected = true;
+                              greyCarSelected = false;
+                              redCarSelected = false;
+                              whiteCarSelected = false;
+                            });
+                          }),
+                          icon: Image.asset(greenCar),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: greyCarSelected ? 1.0 : 0.2,
+                        child: IconButton(
+                          padding: const EdgeInsets.all(10),
+                          onPressed: () {
+                            setState(() {
+                              carSelectedColor = "Grey";
+                              carSelectedImage = greyCar;
+
+                              blackCarSelected = false;
+                              blueCarSelected = false;
+                              greenCarSelected = false;
+                              greyCarSelected = true;
+                              redCarSelected = false;
+                              whiteCarSelected = false;
+                            });
+                          },
+                          icon: Image.asset(greyCar),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: redCarSelected ? 1.0 : 0.2,
+                        child: IconButton(
+                          padding: const EdgeInsets.all(10),
+                          onPressed: (() {
+                            setState(() {
+                              carSelectedColor = "Red";
+                              carSelectedImage = redCar;
+
+                              blackCarSelected = false;
+                              blueCarSelected = false;
+                              greenCarSelected = false;
+                              greyCarSelected = false;
+                              redCarSelected = true;
+                              whiteCarSelected = false;
+                            });
+                          }),
+                          icon: Image.asset(redCar),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 175,
+                      width: 175,
+                      child: Opacity(
+                        opacity: whiteCarSelected ? 1.0 : 0.2,
+                        child: IconButton(
+                          padding: const EdgeInsets.all(10),
+                          onPressed: (() {
+                            setState(() {
+                              carSelectedColor = "White";
+                              carSelectedImage = whiteCar;
+
+                              blackCarSelected = false;
+                              blueCarSelected = false;
+                              greenCarSelected = false;
+                              greyCarSelected = false;
+                              redCarSelected = false;
+                              whiteCarSelected = true;
+                            });
+                          }),
+                          icon: Image.asset(whiteCar),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Vehicle Type',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: sedanSelected ? Colors.green : Colors.grey),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
-                      child: TextButton(
-                        onPressed: (() {
-                          setState(() {
-                            sedanSelected = true;
-                            carSelectedType = "sedan";
-                            carSelectedImage =
-                                "assets/images/sedans/${carSelectedColor.toLowerCase()}sedan.png";
-
-                            blackCar = _sedansImages[0];
-                            blueCar = _sedansImages[1];
-                            greenCar = _sedansImages[2];
-                            greyCar = _sedansImages[3];
-                            redCar = _sedansImages[4];
-                            whiteCar = _sedansImages[5];
-                          });
-                        }),
-                        child: const Text('Sedan',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: sedanSelected ? Colors.grey : Colors.green),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
-                      child: TextButton(
-                        onPressed: (() {
-                          setState(() {
-                            sedanSelected = false;
-                            carSelectedType = 'suv';
-                            carSelectedImage =
-                                "assets/images/suvs/${carSelectedColor.toLowerCase()}suv.png";
-
-                            blackCar = _suvImages[0];
-                            blueCar = _suvImages[1];
-                            greenCar = _suvImages[2];
-                            greyCar = _suvImages[3];
-                            redCar = _suvImages[4];
-                            whiteCar = _suvImages[5];
-                          });
-                        }),
-                        child: const Text('SUV',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 8.0),
+                    child: Text('Selected Color: $carSelectedColor',
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.normal)),
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-              child: TextFormField(
-                controller: _vehicleEnteredName,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter Vehicle Name',
-                ),
-                validator: (String? value) {
-                  return value!.isEmpty ? 'Enter a vehicle name' : null;
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Vehicle Type',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-              child: TextFormField(
-                controller: _vehicleEnteredMiles,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter Current Vehicle Miles',
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: sedanSelected ? Colors.green : Colors.grey),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
+                        child: TextButton(
+                          onPressed: (() {
+                            setState(() {
+                              sedanSelected = true;
+                              carSelectedType = "sedan";
+                              carSelectedImage =
+                                  "assets/images/sedans/${carSelectedColor.toLowerCase()}sedan.png";
+
+                              blackCar = _sedansImages[0];
+                              blueCar = _sedansImages[1];
+                              greenCar = _sedansImages[2];
+                              greyCar = _sedansImages[3];
+                              redCar = _sedansImages[4];
+                              whiteCar = _sedansImages[5];
+                            });
+                          }),
+                          child: const Text('Sedan',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: sedanSelected ? Colors.grey : Colors.green),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
+                        child: TextButton(
+                          onPressed: (() {
+                            setState(() {
+                              sedanSelected = false;
+                              carSelectedType = 'suv';
+                              carSelectedImage =
+                                  "assets/images/suvs/${carSelectedColor.toLowerCase()}suv.png";
+
+                              blackCar = _suvImages[0];
+                              blueCar = _suvImages[1];
+                              greenCar = _suvImages[2];
+                              greyCar = _suvImages[3];
+                              redCar = _suvImages[4];
+                              whiteCar = _suvImages[5];
+                            });
+                          }),
+                          child: const Text('SUV',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                validator: (String? value) {
-                  return int.tryParse(value!) == null
-                      ? 'Enter a valid whole number'
-                      : null;
-                },
               ),
-            ),
-            Expanded(
-              child: Padding(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
+                child: TextFormField(
+                  controller: _vehicleEnteredName,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Vehicle Name',
+                  ),
+                  validator: (String? value) {
+                    return value!.isEmpty ? 'Enter a vehicle name' : null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
+                child: TextFormField(
+                  controller: _vehicleEnteredMiles,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Current Vehicle Miles',
+                  ),
+                  validator: (String? value) {
+                    return int.tryParse(value!) == null
+                        ? 'Enter a valid whole number'
+                        : null;
+                  },
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(15, 4, 15, 10),
                 child: Align(
                   alignment: Alignment.bottomCenter,
@@ -454,8 +454,8 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                       )),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
