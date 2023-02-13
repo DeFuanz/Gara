@@ -1,4 +1,6 @@
 import 'package:choring/Features/AddNewVehicles/Presentation/MobilePages/mobile_body_addvehicle.dart';
+import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
+import 'package:choring/Features/VehicleStats/Presentation/mobile_vehicle_stats.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -82,10 +84,12 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                 (snapshot.data! as DatabaseEvent).snapshot.value
                     as Map<Object?, Object?>);
             userVehicles.forEach((key, value) {
-              final vehicleDetails = Map<String, dynamic>.from(value);
+              final vehicleID = key;
+              final vehicleDetails =
+                  Vehicle.fromRTDB(Map<String, dynamic>.from(value));
 
               for (int i = 0; i < userVehicles.length; i++) {
-                totalMiles += vehicleDetails["Miles"];
+                totalMiles += num.parse(vehicleDetails.totalMiles.toString());
                 avgMiles = totalMiles / userVehicles.length;
               }
 
@@ -97,7 +101,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.green)),
+                        side: const BorderSide(color: Colors.white)),
                     color: Colors.white,
                     child: Container(
                       decoration: BoxDecoration(
@@ -111,7 +115,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Image(
-                                  image: AssetImage(vehicleDetails["Image"])),
+                                  image: AssetImage(
+                                      vehicleDetails.vehicleImage.toString())),
                             ),
                           ),
                           Expanded(
@@ -122,7 +127,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                   flex: 60,
                                   child: Center(
                                     child: Text(
-                                      vehicleDetails["Name"],
+                                      vehicleDetails.vehicleName.toString(),
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20),
@@ -132,7 +137,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                 Expanded(
                                   flex: 40,
                                   child: Text(
-                                      'Total Miles: ${vehicleDetails["Miles"].toString()}'),
+                                      'Total Miles: ${vehicleDetails.totalMiles.toString()}'),
                                 ),
                               ],
                             ),
@@ -142,24 +147,18 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Colors.green,
+                                IconButton(
+                                  iconSize: 35,
+                                  icon: const Icon(Icons.remove_red_eye,
+                                      color: Colors.green),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => VehicleStatsPage(
+                                        vehicleID: vehicleID,
                                       ),
-                                      child: IconButton(
-                                        icon: const Icon(
-                                            Icons.query_stats_rounded,
-                                            color: Colors.white),
-                                        onPressed: () {
-                                          null;
-                                        },
-                                      ),
-                                    ),
-                                  ),
+                                    ));
+                                  },
                                 ),
                               ],
                             ),
