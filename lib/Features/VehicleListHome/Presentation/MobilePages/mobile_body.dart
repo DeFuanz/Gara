@@ -322,6 +322,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                       num totalGasSpending = 0;
                                       num avgGasSpending = 0;
 
+                                      num totalGasFills = 0;
+
                                       if (gasSnapshot.hasData) {
                                         final userVehicles =
                                             Map<String, dynamic>.from(
@@ -338,19 +340,20 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                     value);
 
                                             gasFills.forEach((key, value) {
+                                              totalGasFills++;
+
                                               final gasStats = GasStat.fromRTDB(
                                                   Map<String, dynamic>.from(
                                                       value));
 
                                               totalGasSpending +=
                                                   gasStats.cost!;
-
-                                              avgGasSpending =
-                                                  totalGasSpending /
-                                                      gasFills.length;
                                             });
                                           },
                                         );
+
+                                        avgGasSpending =
+                                            totalGasSpending / totalGasFills;
 
                                         return Row(
                                           children: [
@@ -407,7 +410,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                         children: [
                                                           Text(
                                                               totalGasSpending
-                                                                  .toString(),
+                                                                  .toStringAsFixed(
+                                                                      2),
                                                               style:
                                                                   const TextStyle(
                                                                       fontSize:
@@ -472,7 +476,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                                         children: [
                                                           Text(
                                                               avgGasSpending
-                                                                  .toString(),
+                                                                  .toStringAsFixed(
+                                                                      2),
                                                               style:
                                                                   const TextStyle(
                                                                       fontSize:
