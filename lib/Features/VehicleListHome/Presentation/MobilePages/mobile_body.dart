@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Data/Models/gas_stats.dart';
+
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
 
@@ -76,8 +78,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
           final vehicleTiles = <SizedBox>[];
           num totalMiles = 0;
           num avgMiles = 0;
-          num totalGasSpending = 0;
-          num avgGasSpending = 0;
 
           if (snapshot.hasData) {
             final userVehicles = Map<String, dynamic>.from(
@@ -314,122 +314,182 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                               ),
                               Expanded(
                                 flex: 50,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 50,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.green),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.grey,
-                                                blurRadius: 8,
-                                                offset: Offset(
-                                                    2, 4), // Shadow position
-                                              ),
-                                            ],
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: const [
-                                                  Icon(Icons
-                                                      .local_gas_station_rounded),
-                                                  SizedBox(
-                                                    width: 10,
+                                child: StreamBuilder(
+                                    stream: dbRef
+                                        .child('/GasStats/$userId')
+                                        .onValue,
+                                    builder: (context, gasSnapshot) {
+                                      num totalGasSpending = 0;
+                                      num avgGasSpending = 0;
+
+                                      if (gasSnapshot.hasData) {
+                                        final userVehicles =
+                                            Map<String, dynamic>.from(
+                                                (gasSnapshot.data!
+                                                            as DatabaseEvent)
+                                                        .snapshot
+                                                        .value
+                                                    as Map<Object?, Object?>);
+
+                                        userVehicles.forEach(
+                                          (key, value) {
+                                            final gasFills =
+                                                Map<String, dynamic>.from(
+                                                    value);
+
+                                            gasFills.forEach((key, value) {
+                                              final gasStats = GasStat.fromRTDB(
+                                                  Map<String, dynamic>.from(
+                                                      value));
+
+                                              totalGasSpending +=
+                                                  gasStats.cost!;
+
+                                              avgGasSpending =
+                                                  totalGasSpending /
+                                                      gasFills.length;
+                                            });
+                                          },
+                                        );
+
+                                        return Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 50,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.green),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Colors.white,
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                        color: Colors.grey,
+                                                        blurRadius: 8,
+                                                        offset: Offset(2,
+                                                            4), // Shadow position
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    'Total Gas Spending',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(Icons
+                                                              .local_gas_station_rounded),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            'Total Gas Spending',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                              totalGasSpending
+                                                                  .toString(),
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          25)),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      totalGasSpending
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          fontSize: 25)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 50,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.green),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            color: Colors.white,
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                color: Colors.grey,
-                                                blurRadius: 8,
-                                                offset: Offset(
-                                                    2, 4), // Shadow position
-                                              ),
-                                            ],
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: const [
-                                                  Icon(Icons.attach_money),
-                                                  SizedBox(
-                                                    width: 10,
+                                            ),
+                                            Expanded(
+                                              flex: 50,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.green),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Colors.white,
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                        color: Colors.grey,
+                                                        blurRadius: 8,
+                                                        offset: Offset(2,
+                                                            4), // Shadow position
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    'Avg. Gas Spending',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(Icons
+                                                              .attach_money),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                            'Avg. Gas Spending',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                              avgGasSpending
+                                                                  .toString(),
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          25)),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                      avgGasSpending.toString(),
-                                                      style: const TextStyle(
-                                                          fontSize: 25)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return Text('Error getting gas data');
+                                      }
+                                    }),
                               ),
                             ],
                           ),
