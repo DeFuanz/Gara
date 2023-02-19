@@ -10,7 +10,7 @@ Current Images are for mobile only and include login, create account, home page,
 
 ![GaraLogin](https://user-images.githubusercontent.com/76855046/216796129-8f662d2b-86ca-4ec7-9f29-5bc8206411e0.png)
 ![GaraCreateAccount](https://user-images.githubusercontent.com/76855046/216796133-fbf6eaa9-22cc-47eb-a72e-39c9f665243d.png)
-![GaraHome](https://user-images.githubusercontent.com/76855046/216796134-89751f1c-4272-4ce1-b98e-709fcb323323.png)
+![image](https://user-images.githubusercontent.com/76855046/219969903-dd113197-9b87-41dc-a9ec-afe46b97d981.png)
 ![GaraAddVehicle](https://user-images.githubusercontent.com/76855046/216796132-6249a509-eed1-4e8b-99c3-348d88fbdfae.png)
 
 ---
