@@ -1,9 +1,13 @@
+import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
 import 'package:flutter/material.dart';
 
 class VehicleStatsPage extends StatefulWidget {
   final String vehicleID;
+  final Vehicle vehicle;
 
-  const VehicleStatsPage({Key? key, required this.vehicleID}) : super(key: key);
+  const VehicleStatsPage(
+      {Key? key, required this.vehicleID, required this.vehicle})
+      : super(key: key);
 
   @override
   State<VehicleStatsPage> createState() => _VehicleStatsPageState();
@@ -22,8 +26,12 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Text(widget.vehicleID),
+        child: Column(
+          children: [
+            Row(
+              children: [Text(widget.vehicle.vehicleName.toString())],
+            ),
+          ],
         ),
       ),
     );

@@ -420,7 +420,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                                           ],
                                         );
                                       } else {
-                                        return Text('Error getting gas data');
+                                        return const Text(
+                                            'Error getting gas data');
                                       }
                                     }),
                               ),

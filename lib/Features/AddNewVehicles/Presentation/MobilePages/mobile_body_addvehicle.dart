@@ -441,7 +441,6 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                             addNewVehicle();
 
                             Navigator.pop(context);
-                            Navigator.pop(context);
                           }
                         },
                         child: const Text(

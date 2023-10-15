@@ -66,6 +66,7 @@ SizedBox buildVehicleTile(
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => VehicleStatsPage(
                             vehicleID: vehicleID,
+                            vehicle: vehicleDetails,
                           ),
                         ));
                       },
