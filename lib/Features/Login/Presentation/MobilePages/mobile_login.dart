@@ -95,6 +95,8 @@ class _MobileLoginState extends State<MobileLogin> {
                                           password:
                                               _passwordTextController.text)
                                       .then((value) => {
+                                            _emailTextController.clear(),
+                                            _passwordTextController.clear(),
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>

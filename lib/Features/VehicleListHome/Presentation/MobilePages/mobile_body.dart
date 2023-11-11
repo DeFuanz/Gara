@@ -39,12 +39,17 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 252, 252),
-      appBar: buildAppBar(),
-      body: Container(
-        padding: EdgeInsets.only(top: AppBar().preferredSize.height),
-        child: buildBody(),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 252, 252, 252),
+        appBar: buildAppBar(),
+        body: Container(
+          padding: EdgeInsets.only(top: AppBar().preferredSize.height),
+          child: buildBody(),
+        ),
       ),
     );
   }
