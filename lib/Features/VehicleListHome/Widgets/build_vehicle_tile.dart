@@ -25,49 +25,37 @@ SizedBox buildVehicleTile(
             side: const BorderSide(color: Colors.white),
           ),
           color: Colors.white,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.white,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 25,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Image(
-                      image: AssetImage(vehicleDetails.vehicleImage.toString()),
-                    ),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 25,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Image(
+                    image: AssetImage(vehicleDetails.vehicleImage.toString()),
                   ),
                 ),
-                Expanded(
-                  flex: 60,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 60,
-                        child: Center(
-                          child: Text(
-                            vehicleDetails.vehicleName.toString(),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+              ),
+              Expanded(
+                flex: 60,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 60,
+                      child: Center(
+                        child: Text(
+                          vehicleDetails.vehicleName.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 40,
-                        child: Text(
-                          'Total Miles: ${vehicleDetails.totalMiles.toString()}',
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

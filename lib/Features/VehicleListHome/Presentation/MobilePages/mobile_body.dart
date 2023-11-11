@@ -88,7 +88,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
         } else if (snapshot.hasError) {
           return buildError();
         } else {
-          return buildContent(snapshot);
+          return buildBodyContent(snapshot);
         }
       },
     );
@@ -107,7 +107,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     );
   }
 
-  Widget buildContent(AsyncSnapshot snapshot) {
+  Widget buildBodyContent(AsyncSnapshot snapshot) {
     final userVehicles = Map<String, dynamic>.from(
       (snapshot.data! as DatabaseEvent).snapshot.value as Map<Object?, Object?>,
     );
@@ -155,14 +155,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
                 totalMiles.toString(),
               ),
             ),
-            Expanded(
-              flex: 50,
-              child: buildStatContainer(
-                Icons.add_road_outlined,
-                'Average Miles',
-                avgMiles.toString(),
-              ),
-            ),
           ],
         ),
         buildGasStatsSection(),
@@ -175,7 +167,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.green),
+          border: Border.all(color: Colors.greenAccent.shade100),
           borderRadius: BorderRadius.circular(8),
           boxShadow: const [
             BoxShadow(
@@ -184,7 +176,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
               offset: Offset(2, 4), // Shadow position
             ),
           ],
-          color: Colors.white,
+          color: Colors.greenAccent.shade100,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
