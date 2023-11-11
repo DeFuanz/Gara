@@ -170,6 +170,9 @@ class _NewAccountsState extends State<NewAccounts> {
                                   email: _emailTextController.text,
                                   password: _password1Controller.text)
                               .then((value) => {
+                                    _emailTextController.clear(),
+                                    _password1Controller.clear(),
+                                    _password2Controller.clear(),
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
