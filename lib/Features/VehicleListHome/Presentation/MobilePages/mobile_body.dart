@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../AddNewVehicles/Presentation/MobilePages/mobile_body_addvehicle.dart';
-import '../../Data/Models/Vehicle.dart';
-import '../../Data/Models/gas_stats.dart';
+import '../../../../Data/Models/Vehicle.dart';
+import '../../../../Data/Models/gas_stats.dart';
+import '../../../SharedWidgets/appbar.dart';
 import '../../Widgets/build_vehicle_tile.dart';
 
 class MobileBodyHome extends StatefulWidget {
@@ -45,42 +45,12 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       },
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 252, 252, 252),
-        appBar: buildAppBar(),
+        appBar: buildAppBar(context),
         body: Container(
           padding: EdgeInsets.only(top: AppBar().preferredSize.height),
           child: buildBody(),
         ),
       ),
-    );
-  }
-
-  PreferredSizeWidget buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      foregroundColor: Colors.green,
-      backgroundColor: const Color.fromARGB(255, 252, 252, 252),
-      title: Text(
-        'GARA',
-        style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold),
-      ),
-      leading: const Padding(
-        padding: EdgeInsets.all(10),
-        child: Image(
-          image: AssetImage('assets/images/garage.png'),
-        ),
-      ),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.logout,
-            color: Colors.grey,
-          ),
-          onPressed: () {
-            _auth.signOut();
-            Navigator.pop(context);
-          },
-        ),
-      ],
     );
   }
 

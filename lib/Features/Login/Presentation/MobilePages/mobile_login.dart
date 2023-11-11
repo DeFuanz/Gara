@@ -97,7 +97,9 @@ class _MobileLoginState extends State<MobileLogin> {
                                       .then((value) => {
                                             _emailTextController.clear(),
                                             _passwordTextController.clear(),
-                                            Navigator.of(context).push(
+                                            Navigator.of(context).popUntil(
+                                                (route) => route.isFirst),
+                                            Navigator.of(context).pushReplacement(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         const MobileBodyHome()))

@@ -1,5 +1,7 @@
-import 'package:choring/Features/VehicleListHome/Data/Models/Vehicle.dart';
+import 'package:choring/Data/Models/Vehicle.dart';
 import 'package:flutter/material.dart';
+
+import '../../SharedWidgets/appbar.dart';
 
 class VehicleStatsPage extends StatefulWidget {
   final String vehicleID;
@@ -17,14 +19,9 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          // actions: [
-          //   IconButton(
-          //     icon: const Icon(Icons.arrow_back),
-          //     onPressed: () => null,
-          //   ),
-          // ],
-          ),
+      appBar: buildAppBar(
+        context,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
