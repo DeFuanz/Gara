@@ -98,13 +98,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
 
   Widget buildGarageStats(Map<String, dynamic> userVehicles) {
     num totalMiles = 0;
-    num avgMiles = 0;
 
     userVehicles.forEach((key, value) {
       final vehicleDetails = Vehicle.fromRTDB(Map<String, dynamic>.from(value));
 
       totalMiles += num.parse(vehicleDetails.totalMiles.toString());
-      avgMiles = totalMiles / userVehicles.length;
     });
 
     return Column(
@@ -250,7 +248,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
       final vehicleID = entry.key;
       final vehicleDetails =
           Vehicle.fromRTDB(Map<String, dynamic>.from(entry.value));
-      return buildVehicleTile(vehicleDetails, context, vehicleID);
+      return buildVehicleTile(vehicleDetails, context, vehicleID, userId!);
     }).toList();
 
     return Expanded(

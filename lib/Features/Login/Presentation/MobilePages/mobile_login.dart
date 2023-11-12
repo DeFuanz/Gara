@@ -1,5 +1,5 @@
-import 'package:choring/Features/VehicleListHome/Presentation/MobilePages/mobile_body.dart';
-import 'package:choring/Features/CreateAccount/Presentation/MobilePages/new_accounts.dart';
+import 'package:gara/Features/VehicleListHome/Presentation/MobilePages/mobile_body.dart';
+import 'package:gara/Features/CreateAccount/Presentation/MobilePages/new_accounts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

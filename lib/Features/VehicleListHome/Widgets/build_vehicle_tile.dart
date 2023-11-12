@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../VehicleStats/Presentation/mobile_vehicle_stats.dart';
 import '../../../Data/Models/Vehicle.dart';
 
-SizedBox buildVehicleTile(
-    Vehicle vehicleDetails, BuildContext context, String vehicleID) {
+SizedBox buildVehicleTile(Vehicle vehicleDetails, BuildContext context,
+    String vehicleID, String userId) {
   return SizedBox(
     height: 75,
     width: 350,
@@ -14,6 +14,7 @@ SizedBox buildVehicleTile(
           builder: (context) => VehicleStatsPage(
             vehicleID: vehicleID,
             vehicle: vehicleDetails,
+            userId: userId,
           ),
         ));
       },
