@@ -184,6 +184,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     return StreamBuilder(
       stream: dbRef.child('/GasStats/$userId').onValue,
       builder: (context, gasSnapshot) {
+        print(gasSnapshot.data.toString());
         if (gasSnapshot.connectionState == ConnectionState.waiting) {
           return buildLoading();
         } else if (gasSnapshot.hasError) {

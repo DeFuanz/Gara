@@ -10,8 +10,8 @@ class GasStat {
 
   factory GasStat.fromRTDB(Map<String, dynamic> data) {
     return GasStat(
-        cost: data['Cost'],
-        milesSinceLastFill: data['MilesSinceLastFill'],
-        gallonsFilled: data['Gallons']);
+        cost: data['Cost'] as num?,
+        milesSinceLastFill: data['MilesSinceLastFill'] as num?,
+        gallonsFilled: data['Gallons'] as num?);
   }
 }

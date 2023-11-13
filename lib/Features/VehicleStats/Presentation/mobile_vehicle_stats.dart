@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:gara/Data/Models/Vehicle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:gara/Features/AddGasFillUps/add_gas_fillups.dart';
 
 import '../../../Data/Models/gas_stats.dart';
 import '../../SharedWidgets/appbar.dart';
@@ -24,7 +27,6 @@ class VehicleStatsPage extends StatefulWidget {
 
 class _VehicleStatsPageState extends State<VehicleStatsPage> {
   DatabaseReference dbRef = FirebaseDatabase.instance.ref();
-  late String vehicleId = widget.vehicleID;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: 200,
                   child: Card(
+                      color: Colors.greenAccent.shade100,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -86,6 +89,7 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: 200,
                   child: Card(
+                    color: Colors.greenAccent.shade100,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -114,7 +118,16 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddGasFillUps(
+                                                      vehicleID:
+                                                          widget.vehicleID,
+                                                      userId: widget.userId,
+                                                    )));
+                                      },
                                       child: const Text(
                                         "Add Fill Up",
                                         style: TextStyle(color: Colors.green),
@@ -163,7 +176,6 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
 
     String fillUps = "0";
     String totalCost = "0.00";
-    String averageCost = "0.00";
 
     if (vehicleFillUps.isNotEmpty) {
       fillUps = vehicleFillUps.length.toString();
@@ -174,10 +186,8 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
       totalCost = (double.parse(totalCost) + gasStats.cost!).toString();
     });
 
-    vehicleFillUps.forEach((key, value) {
-      final gasStats = GasStat.fromRTDB(Map<String, dynamic>.from(value));
-      averageCost = (double.parse(averageCost) + gasStats.cost!).toString();
-    });
+    String averageCost =
+        (double.parse(totalCost) / vehicleFillUps.length).toString();
 
     return Expanded(
       child: Column(
