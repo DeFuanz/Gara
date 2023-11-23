@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import 'mobile_body_addvehicle.dart';
+import 'add_vehicle_page.dart';
 import '../Data/Models/Vehicle.dart';
 import '../Data/Models/gas_stats.dart';
 import '../SharedWidgets/appbar.dart';
-import '../Widgets/build_vehicle_tile.dart';
+import 'mobile_vehicle_stats.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
@@ -290,6 +290,67 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  SizedBox buildVehicleTile(Vehicle vehicleDetails, BuildContext context,
+      String vehicleID, String userId) {
+    return SizedBox(
+      height: 75,
+      width: 350,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => VehicleStatsPage(
+              vehicleID: vehicleID,
+              vehicle: vehicleDetails,
+              userId: userId,
+            ),
+          ));
+        },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+              side: const BorderSide(color: Colors.white),
+            ),
+            color: Colors.white,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 25,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Image(
+                      image: AssetImage(vehicleDetails.vehicleImage.toString()),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 60,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 60,
+                        child: Center(
+                          child: Text(
+                            vehicleDetails.vehicleName.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

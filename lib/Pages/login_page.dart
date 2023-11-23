@@ -1,5 +1,5 @@
-import 'package:gara/Pages/mobile_body.dart';
-import 'package:gara/Pages/new_accounts.dart';
+import 'package:gara/Pages/home_page.dart';
+import 'package:gara/Pages/new_accounts_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

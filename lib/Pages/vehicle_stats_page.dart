@@ -1,7 +1,7 @@
 import 'package:gara/Data/Models/Vehicle.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:gara/Pages/add_gas_fillups.dart';
+import 'package:gara/Pages/add_gas_fillups_page.dart';
 
 import '../Data/Models/gas_stats.dart';
 import '../SharedWidgets/appbar.dart';

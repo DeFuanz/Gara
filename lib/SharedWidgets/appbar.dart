@@ -1,5 +1,5 @@
 
-import 'package:gara/Pages/mobile_login.dart';
+import 'package:gara/Pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
