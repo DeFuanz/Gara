@@ -1,13 +1,10 @@
-import 'dart:ffi';
-
 import 'package:gara/Data/Models/Vehicle.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:gara/Features/AddGasFillUps/add_gas_fillups.dart';
+import 'package:gara/Pages/add_gas_fillups.dart';
 
-import '../../../Data/Models/gas_stats.dart';
-import '../../SharedWidgets/appbar.dart';
+import '../Data/Models/gas_stats.dart';
+import '../SharedWidgets/appbar.dart';
 
 class VehicleStatsPage extends StatefulWidget {
   final String vehicleID;
@@ -79,8 +76,7 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              Text(
-                                  'Total Miles: ${widget.vehicle.totalMiles ?? 0}'),
+                              buildVehicleStats(widget.vehicle),
                             ],
                           ))),
                 ),
@@ -150,6 +146,19 @@ class _VehicleStatsPageState extends State<VehicleStatsPage> {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildVehicleStats(Vehicle vehicle) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Total Miles ${vehicle.totalMiles.toString()}'),
+          Text('')
         ],
       ),
     );

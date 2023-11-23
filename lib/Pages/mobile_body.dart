@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import '../../../AddNewVehicles/Presentation/MobilePages/mobile_body_addvehicle.dart';
-import '../../../../Data/Models/Vehicle.dart';
-import '../../../../Data/Models/gas_stats.dart';
-import '../../../SharedWidgets/appbar.dart';
-import '../../Widgets/build_vehicle_tile.dart';
+import 'mobile_body_addvehicle.dart';
+import '../Data/Models/Vehicle.dart';
+import '../Data/Models/gas_stats.dart';
+import '../SharedWidgets/appbar.dart';
+import '../Widgets/build_vehicle_tile.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
@@ -181,7 +181,7 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   }
 
   Widget buildGasStatsSection() {
-    return StreamBuilder(
+    return StreamBuilder<DatabaseEvent>(
       stream: dbRef.child('/GasStats/$userId').onValue,
       builder: (context, gasSnapshot) {
         print(gasSnapshot.data.toString());
@@ -197,30 +197,32 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
   }
 
   Widget buildGasStatsContent(AsyncSnapshot gasSnapshot) {
+    if (gasSnapshot.hasError || gasSnapshot.data?.snapshot?.value == null) {
+      return Center(
+        child: Text('No data available'),
+      );
+    }
+
     final userGasStats = Map<String, dynamic>.from(
       (gasSnapshot.data! as DatabaseEvent).snapshot.value
           as Map<Object?, Object?>,
     );
 
     num totalGasSpending = 0;
-    num avgGasSpending = 0;
-    num totalGasFills = 0;
+    num totalGallonsFilled = 0;
 
     userGasStats.forEach(
       (key, value) {
         final gasFills = Map<String, dynamic>.from(value);
 
         gasFills.forEach((key, value) {
-          totalGasFills++;
-
           final gasStats = GasStat.fromRTDB(Map<String, dynamic>.from(value));
 
-          totalGasSpending += gasStats.cost!;
+          totalGasSpending += gasStats.cost ?? 0;
+          totalGallonsFilled += gasStats.gallonsFilled ?? 0;
         });
       },
     );
-
-    avgGasSpending = totalGasSpending / totalGasFills;
 
     return Row(
       children: [
@@ -236,8 +238,8 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
           flex: 50,
           child: buildStatContainer(
             Icons.attach_money,
-            'Avg. Gas Spending',
-            avgGasSpending.toStringAsFixed(2),
+            'Gallons Filled',
+            totalGallonsFilled.toString(),
           ),
         ),
       ],

@@ -12,6 +12,6 @@ class GasStat {
     return GasStat(
         cost: data['Cost'] as num?,
         milesSinceLastFill: data['MilesSinceLastFill'] as num?,
-        gallonsFilled: data['Gallons'] as num?);
+        gallonsFilled: data['GallonsFilled'] as num?);
   }
 }

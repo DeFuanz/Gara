@@ -1,10 +1,8 @@
-import 'dart:io';
 
-import 'package:gara/Features/Login/Presentation/MobilePages/mobile_login.dart';
+import 'package:gara/Pages/mobile_login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:path/path.dart' as path;
 
 PreferredSizeWidget buildAppBar(BuildContext context) {
   FirebaseAuth _auth = FirebaseAuth.instance;
