@@ -6,7 +6,7 @@ import 'add_vehicle_page.dart';
 import '../Data/Models/Vehicle.dart';
 import '../Data/Models/gas_stats.dart';
 import '../SharedWidgets/appbar.dart';
-import 'mobile_vehicle_stats.dart';
+import 'vehicle_stats_page.dart';
 
 class MobileBodyHome extends StatefulWidget {
   const MobileBodyHome({Key? key}) : super(key: key);
