@@ -1,8 +1,13 @@
+import 'package:gara/Api/web_scraper_api.dart';
 import 'package:gara/Pages/home_page.dart';
 import 'package:gara/Pages/new_accounts_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../Data/Provider/car_data.dart';
+import '../Data/Provider/car_data_provider.dart';
 
 class MobileLogin extends StatefulWidget {
   const MobileLogin({Key? key}) : super(key: key);
@@ -16,6 +21,13 @@ class _MobileLoginState extends State<MobileLogin> {
 
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
+
+  Future loadCarMakeAndModels(BuildContext context) async {
+    final makeAndModels = await WebScraperApi().getCarMakeAndModels();
+
+    final carData = CarData(carMakeAndModels: makeAndModels);
+    context.read<CarDataProvider>().setCarData(carData);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,9 +106,10 @@ class _MobileLoginState extends State<MobileLogin> {
                                           email: _emailTextController.text,
                                           password:
                                               _passwordTextController.text)
-                                      .then((value) => {
+                                      .then((value) async => {
                                             _emailTextController.clear(),
                                             _passwordTextController.clear(),
+                                            await loadCarMakeAndModels(context),
                                             Navigator.of(context).popUntil(
                                                 (route) => route.isFirst),
                                             Navigator.of(context).pushReplacement(

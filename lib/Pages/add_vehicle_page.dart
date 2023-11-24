@@ -2,8 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gara/Data/Provider/car_data_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Api/web_scraper_api.dart';
+import 'package:provider/provider.dart';
 
 class CarImages {
   static String get blackCar => _carImages[0];
@@ -108,275 +109,153 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, List<String>>>(
-      future: WebScraperApi().getCarBrands(),
-      builder: (BuildContext context,
-          AsyncSnapshot<Map<String, List<String>>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            height: double.infinity,
-            width: double.infinity,
-            color: Colors.white,
-            child: const Center(
-              child: CircularProgressIndicator(),
+    final carDataProvider = context.read<CarDataProvider>();
+    final carMap = carDataProvider.carData?.carMakeAndModels;
+
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text('GARA',
+            style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold)),
+        leading: Padding(
+          padding: const EdgeInsets.all(10),
+          child: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.green,
             ),
-          );
-        } else if (snapshot.hasError) {
-          return Text("Error Loading");
-        } else {
-          final Map<String, List<String>> _vehicleMakes = snapshot.data!;
-          return Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.white,
-              title: Text('GARA',
-                  style: GoogleFonts.poiretOne(fontWeight: FontWeight.bold)),
-              leading: Padding(
-                padding: const EdgeInsets.all(10),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.green,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Text(
+                      'Select Car Color',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                ],
+              ),
+              SizedBox(
+                height: 200,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: 180,
+                    enlargeCenterPage: true,
+                    aspectRatio: 16 / 9,
+                    enableInfiniteScroll: true,
+                    viewportFraction: 0.5,
+                  ),
+                  items: [
+                    _buildColorCarouselItem(
+                        carImages[0], blackCarSelected, 'Black'),
+                    _buildColorCarouselItem(
+                        carImages[1], blueCarSelected, 'Blue'),
+                    _buildColorCarouselItem(
+                        carImages[2], greenCarSelected, 'Green'),
+                    _buildColorCarouselItem(
+                        carImages[3], greyCarSelected, 'Grey'),
+                    _buildColorCarouselItem(
+                        carImages[4], redCarSelected, 'Red'),
+                    _buildColorCarouselItem(
+                        carImages[5], whiteCarSelected, 'White'),
+                  ],
                 ),
               ),
-            ),
-            body: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 8.0),
+                    child: Text(
+                      'Selected Color: $carSelectedColor',
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Vehicle Type',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            'Select Car Color',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 200,
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          height: 180,
-                          enlargeCenterPage: true,
-                          aspectRatio: 16 / 9,
-                          enableInfiniteScroll: true,
-                          viewportFraction: 0.5,
-                        ),
-                        items: [
-                          _buildColorCarouselItem(
-                              carImages[0], blackCarSelected, 'Black'),
-                          _buildColorCarouselItem(
-                              carImages[1], blueCarSelected, 'Blue'),
-                          _buildColorCarouselItem(
-                              carImages[2], greenCarSelected, 'Green'),
-                          _buildColorCarouselItem(
-                              carImages[3], greyCarSelected, 'Grey'),
-                          _buildColorCarouselItem(
-                              carImages[4], redCarSelected, 'Red'),
-                          _buildColorCarouselItem(
-                              carImages[5], whiteCarSelected, 'White'),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 4.0, 0, 8.0),
-                          child: Text(
-                            'Selected Color: $carSelectedColor',
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.normal),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Vehicle Type',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color:
-                                    sedanSelected ? Colors.green : Colors.grey),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    sedanSelected = true;
-                                    carSelectedType = "sedan";
-                                    carSelectedImage =
-                                        "assets/images/sedans/${carSelectedColor.toLowerCase()}sedan.png";
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: sedanSelected ? Colors.green : Colors.grey),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              sedanSelected = true;
+                              carSelectedType = "sedan";
+                              carSelectedImage =
+                                  "assets/images/sedans/${carSelectedColor.toLowerCase()}sedan.png";
 
-                                    carImages = CarImages.sedansImages;
-                                  });
-                                },
-                                child: const Text(
-                                  'Sedan',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color:
-                                    sedanSelected ? Colors.grey : Colors.green),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    sedanSelected = false;
-                                    carSelectedType = 'suv';
-                                    carSelectedImage =
-                                        "assets/images/suvs/${carSelectedColor.toLowerCase()}suv.png";
-
-                                    carImages = CarImages.suvImages;
-                                  });
-                                },
-                                child: const Text(
-                                  'SUV',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-                      child: DropdownButton<String>(
-                        hint: Text('Select vehicle Country'),
-                        borderRadius: BorderRadius.circular(8),
-                        isExpanded: true,
-                        alignment: Alignment.center,
-                        value: selectedKey,
-                        items: _vehicleMakes.keys.map((String key) {
-                          return DropdownMenuItem<String>(
-                            value: key,
-                            child: Text(key),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedKey = newValue;
-                            selectedValue =
-                                null; // Reset the selected value when changing the key
-                          });
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-                      child: DropdownButton<String>(
-                        hint: Text('Select vehicle Brand'),
-                        borderRadius: BorderRadius.circular(8),
-                        alignment: Alignment.center,
-                        isExpanded: true,
-                        value: selectedValue,
-                        items: selectedKey != null
-                            ? _vehicleMakes[selectedKey]!.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList()
-                            : [],
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedValue = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-                      child: TextFormField(
-                        controller: _vehicleEnteredName,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter Vehicle Name',
-                        ),
-                        validator: (String? value) {
-                          return value!.isEmpty ? 'Enter a vehicle name' : null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
-                      child: TextFormField(
-                        controller: _vehicleEnteredMiles,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Enter Current Vehicle Miles',
-                        ),
-                        validator: (String? value) {
-                          return int.tryParse(value!) == null
-                              ? 'Enter a valid whole number'
-                              : null;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 4, 15, 10),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            color: Colors.green,
-                          ),
-                          height: 50,
-                          width: double.infinity,
-                          child: TextButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                addNewVehicle();
-                                Navigator.pop(context);
-                              }
-                            },
-                            child: const Text(
-                              'Add To Garage',
-                              style: TextStyle(
+                              carImages = CarImages.sedansImages;
+                            });
+                          },
+                          child: const Text(
+                            'Sedan',
+                            style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
-                              ),
-                            ),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: sedanSelected ? Colors.grey : Colors.green),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 2, 40, 2),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              sedanSelected = false;
+                              carSelectedType = 'suv';
+                              carSelectedImage =
+                                  "assets/images/suvs/${carSelectedColor.toLowerCase()}suv.png";
+
+                              carImages = CarImages.suvImages;
+                            });
+                          },
+                          child: const Text(
+                            'SUV',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -384,10 +263,90 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   ],
                 ),
               ),
-            ),
-          );
-        }
-      },
+              DropdownButton<String>(
+                value: selectedValue,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedValue = newValue!;
+                  });
+                },
+                items:
+                    carMap?.keys.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList() ??
+                        [],
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
+                child: TextFormField(
+                  controller: _vehicleEnteredName,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Vehicle Name',
+                  ),
+                  validator: (String? value) {
+                    return value!.isEmpty ? 'Enter a vehicle name' : null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
+                child: TextFormField(
+                  controller: _vehicleEnteredMiles,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Current Vehicle Miles',
+                  ),
+                  validator: (String? value) {
+                    return int.tryParse(value!) == null
+                        ? 'Enter a valid whole number'
+                        : null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 4, 15, 10),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: Colors.green,
+                    ),
+                    height: 50,
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          addNewVehicle();
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: const Text(
+                        'Add To Garage',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

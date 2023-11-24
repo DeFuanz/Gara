@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:provider/provider.dart';
 
+import '../Data/Provider/car_data_provider.dart';
 import 'add_vehicle_page.dart';
 import '../Data/Models/Vehicle.dart';
 import '../Data/Models/gas_stats.dart';
@@ -39,6 +41,11 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
 
   @override
   Widget build(BuildContext context) {
+    final carDataProvider = context.read<CarDataProvider>();
+    final carMap = carDataProvider.carData?.carMakeAndModels;
+
+    print("home page: $carMap ");
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -184,7 +191,6 @@ class _MobileBodyHomeState extends State<MobileBodyHome> {
     return StreamBuilder<DatabaseEvent>(
       stream: dbRef.child('/GasStats/$userId').onValue,
       builder: (context, gasSnapshot) {
-        print(gasSnapshot.data.toString());
         if (gasSnapshot.connectionState == ConnectionState.waiting) {
           return buildLoading();
         } else if (gasSnapshot.hasError) {
