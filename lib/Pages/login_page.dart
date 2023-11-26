@@ -26,6 +26,7 @@ class _MobileLoginState extends State<MobileLogin> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
 
+  //Check if vehicle data is already cached, if not, scrape website
   Future loadCarMakeAndModels(BuildContext context) async {
     final cacheManager = DefaultCacheManager();
     final cacheFile = await cacheManager.getSingleFile('map_cache');
@@ -44,6 +45,7 @@ class _MobileLoginState extends State<MobileLogin> {
     context.read<CarDataProvider>().setCarData(carData);
   }
 
+  //take map created by webscraper and cache it.
   void cacheMap(Map<String, List<String>> myMap) async {
     final cacheManager = DefaultCacheManager();
     final jsonString = jsonEncode(myMap);
@@ -57,6 +59,7 @@ class _MobileLoginState extends State<MobileLogin> {
     print('Map cached successfully!');
   }
 
+  //retrieve map from cache and decode it into a map
   Future<Map<String, List<String>>> retrieveAndDecodeMap() async {
     final cacheManager = DefaultCacheManager();
     final cacheFile = await cacheManager.getSingleFile('map_cache');
