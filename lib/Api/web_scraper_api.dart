@@ -7,6 +7,11 @@ class WebScraperApi {
 
     Map<String, List<String>> carBrands = {};
 
+    // String make = "Select Car Make";
+    // String model = "Select Car Model";
+
+    // carBrands.putIfAbsent(make, () => []).add(model);
+
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
@@ -19,6 +24,10 @@ class WebScraperApi {
           var title = brandElement.attributes['title'];
           var carName = title?.replaceAll(' Car Models List', '');
           var link = brandElement.attributes['href'];
+          if (carBrands.containsKey(carName)) {
+            continue;
+          }
+
           carBrands[carName!] = [];
 
           var url = Uri.parse(link!);
@@ -29,7 +38,12 @@ class WebScraperApi {
             var listElements = document.querySelectorAll('li');
             for (var listElement in listElements) {
               if (listElement.text.contains(carName)) {
-                carBrands[carName]?.add(listElement.text);
+                if (!carBrands.containsKey(carName) ||
+                    !carBrands[carName]!.contains(listElement.text)) {
+                  carBrands
+                      .putIfAbsent(carName, () => [])
+                      .add(listElement.text);
+                }
               }
             }
           }

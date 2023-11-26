@@ -45,9 +45,6 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   String? userId;
 
-  String? selectedKey;
-  String? selectedValue;
-
   bool sedanSelected = true;
 
   bool blackCarSelected = true;
@@ -111,6 +108,9 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   Widget build(BuildContext context) {
     final carDataProvider = context.read<CarDataProvider>();
     final carMap = carDataProvider.carData?.carMakeAndModels;
+    String? carMake = carDataProvider.carData?.selectedCarMake;
+
+    print("Selected Key: $carMake");
 
     return Scaffold(
       appBar: AppBar(
@@ -263,28 +263,19 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   ],
                 ),
               ),
-              DropdownButton<String>(
-                value: selectedValue,
-                icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (String? newValue) {
+              DropdownButton(
+                value: carMake,
+                items: carMap?.keys.map((String key) {
+                  return DropdownMenuItem<String>(
+                    value: key,
+                    child: Text(key),
+                  );
+                }).toList(),
+                onChanged: (String? newKey) {
                   setState(() {
-                    selectedValue = newValue!;
+                    context.read<CarDataProvider>().setCarMake(newKey!);
                   });
                 },
-                items:
-                    carMap?.keys.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList() ??
-                        [],
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),

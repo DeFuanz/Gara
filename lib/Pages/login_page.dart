@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:gara/Api/web_scraper_api.dart';
 import 'package:gara/Pages/home_page.dart';
 import 'package:gara/Pages/new_accounts_page.dart';
@@ -23,10 +27,52 @@ class _MobileLoginState extends State<MobileLogin> {
   final TextEditingController _passwordTextController = TextEditingController();
 
   Future loadCarMakeAndModels(BuildContext context) async {
-    final makeAndModels = await WebScraperApi().getCarMakeAndModels();
+    final cacheManager = DefaultCacheManager();
+    final cacheFile = await cacheManager.getSingleFile('map_cache');
+
+    Map<String, List<String>> makeAndModels = {};
+
+    if (cacheFile.existsSync() && cacheFile.lengthSync() > 0) {
+      makeAndModels = await retrieveAndDecodeMap();
+      print('Map retrieved successfully!');
+    } else {
+      makeAndModels = await WebScraperApi().getCarMakeAndModels();
+      cacheMap(makeAndModels);
+    }
 
     final carData = CarData(carMakeAndModels: makeAndModels);
     context.read<CarDataProvider>().setCarData(carData);
+  }
+
+  void cacheMap(Map<String, List<String>> myMap) async {
+    final cacheManager = DefaultCacheManager();
+    final jsonString = jsonEncode(myMap);
+    final Uint8List jsonBytes = Uint8List.fromList(utf8.encode(jsonString));
+
+    await cacheManager.putFile(
+      'map_cache',
+      jsonBytes,
+      key: 'map_cache',
+    );
+    print('Map cached successfully!');
+  }
+
+  Future<Map<String, List<String>>> retrieveAndDecodeMap() async {
+    final cacheManager = DefaultCacheManager();
+    final cacheFile = await cacheManager.getSingleFile('map_cache');
+
+    final Uint8List cachedData = await cacheFile.readAsBytes();
+    final jsonString = utf8.decode(cachedData);
+    final decodedMap = jsonDecode(jsonString) as Map<String, dynamic>;
+
+    final Map<String, List<String>> resultMap = {};
+    decodedMap.forEach((key, value) {
+      if (value is List<dynamic>) {
+        resultMap[key] = List<String>.from(value);
+      }
+    });
+
+    return resultMap;
   }
 
   @override
