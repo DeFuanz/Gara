@@ -7,11 +7,6 @@ class WebScraperApi {
 
     Map<String, List<String>> carBrands = {};
 
-    // String make = "Select Car Make";
-    // String model = "Select Car Model";
-
-    // carBrands.putIfAbsent(make, () => []).add(model);
-
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {

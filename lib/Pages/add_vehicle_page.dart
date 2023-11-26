@@ -45,6 +45,9 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   String? userId;
 
+  String? carMake;
+  String? carModel;
+
   bool sedanSelected = true;
 
   bool blackCarSelected = true;
@@ -108,9 +111,10 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
   Widget build(BuildContext context) {
     final carDataProvider = context.read<CarDataProvider>();
     final carMap = carDataProvider.carData?.carMakeAndModels;
-    String? carMake = carDataProvider.carData?.selectedCarMake;
 
-    print("Selected Key: $carMake");
+    carMake = carDataProvider.carData?.selectedCarMake;
+
+    print("Make: $carMake");
 
     return Scaffold(
       appBar: AppBar(
