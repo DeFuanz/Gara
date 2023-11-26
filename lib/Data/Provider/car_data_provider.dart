@@ -16,4 +16,9 @@ class CarDataProvider with ChangeNotifier {
     _carData!.selectedCarMake = carMake;
     notifyListeners();
   }
+
+  void setCarModel(String carModel) {
+    _carData!.selectedCarModel = carModel;
+    notifyListeners();
+  }
 }

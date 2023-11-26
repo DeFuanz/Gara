@@ -113,6 +113,7 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
     final carMap = carDataProvider.carData?.carMakeAndModels;
 
     carMake = carDataProvider.carData?.selectedCarMake;
+    carModel = carDataProvider.carData?.selectedCarModel;
 
     print("Make: $carMake");
 
@@ -267,19 +268,50 @@ class _MobileBodyAddVehicleState extends State<MobileBodyAddVehicle> {
                   ],
                 ),
               ),
-              DropdownButton(
-                value: carMake,
-                items: carMap?.keys.map((String key) {
-                  return DropdownMenuItem<String>(
-                    value: key,
-                    child: Text(key),
-                  );
-                }).toList(),
-                onChanged: (String? newKey) {
-                  setState(() {
-                    context.read<CarDataProvider>().setCarMake(newKey!);
-                  });
-                },
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 4, 15, 10),
+                child: Column(
+                  children: [
+                    DropdownButton(
+                      isExpanded: true,
+                      value: carMake,
+                      items: carMap?.keys.map((String key) {
+                        return DropdownMenuItem<String>(
+                          value: key,
+                          child: Text(key),
+                        );
+                      }).toList(),
+                      onChanged: (String? newKey) {
+                        setState(() {
+                          context.read<CarDataProvider>().setCarMake(newKey!);
+                          context
+                              .read<CarDataProvider>()
+                              .setCarModel(carMap![newKey]!.first);
+                        });
+                      },
+                    ),
+                    DropdownButton(
+                      isExpanded: true,
+                      value: carModel,
+                      items: carMap?[carMake]?.map((String key) {
+                        return DropdownMenuItem<String>(
+                          value: key,
+                          child: Text(
+                            key,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          context
+                              .read<CarDataProvider>()
+                              .setCarModel(newValue!);
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 4, 15, 4),
